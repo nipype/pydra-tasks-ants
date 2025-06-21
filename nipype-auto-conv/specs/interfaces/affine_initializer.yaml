@@ -41,6 +41,8 @@ inputs:
   # dict[str, str] - names of methods/callable classes defined in the adjacent `*_callables.py`
   # to set as the `default` method of input fields
   metadata:
+    principal_axes:
+      default: False
   # dict[str, dict[str, any]] - additional metadata to set on any of the input fields (e.g. out_file: position: 1)
 outputs:
   omit:

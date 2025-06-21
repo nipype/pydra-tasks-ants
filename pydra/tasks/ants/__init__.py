@@ -20,7 +20,7 @@ except ImportError:
     )
 if "nipype" not in __version__:
     try:
-        from .auto._version import nipype_version, nipype2pydra_version
+        from .auto._post_release import src_pkg_version, nipype2pydra_version
     except ImportError:
         warn(
             "Nipype interfaces haven't been automatically converted from their specs in "
@@ -28,7 +28,7 @@ if "nipype" not in __version__:
             "to generated the converted Nipype interfaces in pydra.tasks.ants.auto"
         )
     else:
-        n_ver = nipype_version.replace(".", "_")
+        n_ver = src_pkg_version.replace(".", "_")
         n2p_ver = nipype2pydra_version.replace(".", "_")
         __version__ += (
             "_" if "+" in __version__ else "+"
