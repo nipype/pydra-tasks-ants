@@ -6,6 +6,9 @@ nipype_name: Info
 nipype_module: nipype.interfaces.ants.base
 # the names of the nested interfaces that are defined in other modules and need to be imported
 external_nested_interfaces: null
-# a list of tuples where the first element is a regular expression to find in the code and the second
+# a list of tuples where the first element is a regular expression to find in the code and the second 
 # element is the replacement string
 find_replace: null
+# list import statements required by the test, with each list itemconsisting of 'module', 'name', and 
+# optionally 'alias' keys
+imports: null

@@ -6,22 +6,22 @@
 # Docs
 # ----
 # Generate a optimal average template
-#
-#     .. warning::
-#
-#       This can take a VERY long time to complete
-#
-#     Examples
-#     --------
-#
-#     >>> from nipype.interfaces.ants.legacy import buildtemplateparallel
-#     >>> tmpl = buildtemplateparallel()
-#     >>> tmpl.inputs.in_files = ['T1.nii', 'structural.nii']
-#     >>> tmpl.inputs.max_iterations = [30, 90, 20]
-#     >>> tmpl.cmdline
-#     'buildtemplateparallel.sh -d 3 -i 4 -m 30x90x20 -o antsTMPL_ -c 0 -t GR T1.nii structural.nii'
-#
-#
+# 
+# .. warning::
+# 
+#   This can take a VERY long time to complete
+# 
+# Examples
+# --------
+# 
+# >>> from nipype.interfaces.ants.legacy import buildtemplateparallel
+# >>> tmpl = buildtemplateparallel()
+# >>> tmpl.inputs.in_files = ['T1.nii', 'structural.nii']
+# >>> tmpl.inputs.max_iterations = [30, 90, 20]
+# >>> tmpl.cmdline
+# 'buildtemplateparallel.sh -d 3 -i 4 -m 30x90x20 -o antsTMPL_ -c 0 -t GR T1.nii structural.nii'
+# 
+# 
 task_name: buildtemplateparallel
 nipype_name: buildtemplateparallel
 nipype_module: nipype.interfaces.ants.legacy
@@ -64,7 +64,7 @@ outputs:
   # dict[str, str] - names of methods/callable classes defined in the adjacent `*_callables.py`
   # to set to the `callable` attribute of output fields
   templates:
-  # dict[str, str] - `output_file_template` values to be provided to output fields
+  # dict[str, str] - `path_template` values to be provided to output fields
   requirements:
   # dict[str, list[str]] - input fields that are required to be provided for the output field to be present
 tests:
@@ -104,15 +104,15 @@ tests:
     environ:
     # type=dict|default={}: Environment variables
   imports:
-  # list[nipype2pydra.task.base.importstatement] - list import statements required by the test, with each list item
+  # list[nipype2pydra.statements.imports.explicitimport] - list import statements required by the test, with each list item
   # consisting of 'module', 'name', and optionally 'alias' keys
   expected_outputs:
   # dict[str, str] - expected values for selected outputs, noting that tests will typically
   # be terminated before they complete for time-saving reasons, and therefore
   # these values will be ignored, when running in CI
   timeout: 10
-  # int - the value to set for the timeout in the generated test,
-  # after which the test will be considered to have been initialised
+  # int - the value to set for the timeout in the generated test, 
+  # after which the test will be considered to have been initialised 
   # successfully. Set to 0 to disable the timeout (warning, this could
   # lead to the unittests taking a very long time to complete)
   xfail: true
@@ -123,18 +123,16 @@ tests:
   # (if not specified, will try to choose a sensible value)
     in_files:
     # type=list|default=[]: list of images to generate template from
-    max_iterations: '[30, 90, 20]'
-    # type=list|default=[]: maximum number of iterations (must be list of integers in the form [J,K,L...]: J = coarsest resolution iterations, K = middle resolution iterations, L = fine resolution iterations
   imports:
-  # list[nipype2pydra.task.base.importstatement] - list import statements required by the test, with each list item
+  # list[nipype2pydra.statements.imports.explicitimport] - list import statements required by the test, with each list item
   # consisting of 'module', 'name', and optionally 'alias' keys
   expected_outputs:
   # dict[str, str] - expected values for selected outputs, noting that tests will typically
   # be terminated before they complete for time-saving reasons, and therefore
   # these values will be ignored, when running in CI
   timeout: 10
-  # int - the value to set for the timeout in the generated test,
-  # after which the test will be considered to have been initialised
+  # int - the value to set for the timeout in the generated test, 
+  # after which the test will be considered to have been initialised 
   # successfully. Set to 0 to disable the timeout (warning, this could
   # lead to the unittests taking a very long time to complete)
   xfail: true
@@ -149,10 +147,8 @@ doctests:
   # '.mock()' method of the corresponding class is used instead.
     in_files: '["T1.nii", "structural.nii"]'
     # type=list|default=[]: list of images to generate template from
-    max_iterations: '[30, 90, 20]'
-    # type=list|default=[]: maximum number of iterations (must be list of integers in the form [J,K,L...]: J = coarsest resolution iterations, K = middle resolution iterations, L = fine resolution iterations
   imports:
-  # list[nipype2pydra.task.base.importstatement] - list import statements required by the test, with each list item
+  # list[nipype2pydra.statements.imports.explicitimport] - list import statements required by the test, with each list item
   # consisting of 'module', 'name', and optionally 'alias' keys
   directive:
   # str - any doctest directive to place on the cmdline call, e.g. # doctest: +ELLIPSIS
