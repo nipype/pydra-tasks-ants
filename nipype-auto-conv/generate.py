@@ -18,4 +18,3 @@ result = runner.invoke(
 )
 
 assert not result.exit_code, show_cli_trace(result)
-

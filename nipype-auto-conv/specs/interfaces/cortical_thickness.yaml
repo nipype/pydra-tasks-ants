@@ -5,7 +5,7 @@
 #
 # Docs
 # ----
-# 
+#
 # Examples
 # --------
 # >>> from nipype.interfaces.ants.segmentation import CorticalThickness
@@ -23,8 +23,8 @@
 # 'antsCorticalThickness.sh -a T1.nii.gz -m ProbabilityMaskOfStudyTemplate.nii.gz
 # -e study_template.nii.gz -d 3 -s nii.gz -o antsCT_
 # -p nipype_priors/BrainSegmentationPrior%02d.nii.gz -t brain_study_template.nii.gz'
-# 
-# 
+#
+#
 task_name: CorticalThickness
 nipype_name: CorticalThickness
 nipype_module: nipype.interfaces.ants.segmentation
@@ -50,7 +50,7 @@ inputs:
     extraction_registration_mask: generic/file
     # type=file|default=<undefined>: Mask (defined in the template space) used during registration for brain extraction.
     segmentation_priors: medimage/nifti-gz+list-of
-    # type=inputmultiobject|default=[]: 
+    # type=inputmultiobject|default=[]:
     t1_registration_template: generic/file
     # type=file|default=<undefined>: Anatomical *intensity* template (assumed to be skull-stripped). A common case would be where this would be the same template as specified in the -e option which is not skull stripped.
   callable_defaults:
@@ -115,7 +115,7 @@ tests:
     brain_probability_mask:
     # type=file|default=<undefined>: brain probability mask in template space
     segmentation_priors:
-    # type=inputmultiobject|default=[]: 
+    # type=inputmultiobject|default=[]:
     out_prefix:
     # type=str|default='antsCT_': Prefix that is prepended to all output files
     image_suffix:
@@ -162,8 +162,8 @@ tests:
   # be terminated before they complete for time-saving reasons, and therefore
   # these values will be ignored, when running in CI
   timeout: 10
-  # int - the value to set for the timeout in the generated test, 
-  # after which the test will be considered to have been initialised 
+  # int - the value to set for the timeout in the generated test,
+  # after which the test will be considered to have been initialised
   # successfully. Set to 0 to disable the timeout (warning, this could
   # lead to the unittests taking a very long time to complete)
   xfail: true
@@ -177,7 +177,7 @@ tests:
     brain_template:
     # type=file|default=<undefined>: Anatomical *intensity* template (possibly created using a population data set with buildtemplateparallel.sh in ANTs). This template is  *not* skull-stripped.
     segmentation_priors:
-    # type=inputmultiobject|default=[]: 
+    # type=inputmultiobject|default=[]:
   imports:
   # list[nipype2pydra.statements.imports.explicitimport] - list import statements required by the test, with each list item
   # consisting of 'module', 'name', and optionally 'alias' keys
@@ -186,8 +186,8 @@ tests:
   # be terminated before they complete for time-saving reasons, and therefore
   # these values will be ignored, when running in CI
   timeout: 10
-  # int - the value to set for the timeout in the generated test, 
-  # after which the test will be considered to have been initialised 
+  # int - the value to set for the timeout in the generated test,
+  # after which the test will be considered to have been initialised
   # successfully. Set to 0 to disable the timeout (warning, this could
   # lead to the unittests taking a very long time to complete)
   xfail: true
@@ -205,7 +205,7 @@ doctests:
     brain_template: '"study_template.nii.gz"'
     # type=file|default=<undefined>: Anatomical *intensity* template (possibly created using a population data set with buildtemplateparallel.sh in ANTs). This template is  *not* skull-stripped.
     segmentation_priors: '["BrainSegmentationPrior01.nii.gz", "BrainSegmentationPrior02.nii.gz", "BrainSegmentationPrior03.nii.gz", "BrainSegmentationPrior04.nii.gz"]'
-    # type=inputmultiobject|default=[]: 
+    # type=inputmultiobject|default=[]:
   imports:
   # list[nipype2pydra.statements.imports.explicitimport] - list import statements required by the test, with each list item
   # consisting of 'module', 'name', and optionally 'alias' keys
