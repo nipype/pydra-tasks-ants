@@ -48,7 +48,6 @@ jobs:
           attest-build-provenance-github: ${{ github.event_name != 'pull_request' }}
 
   test:
-    needs: [nipype-conv]
     runs-on: ubuntu-latest
     strategy:
       matrix:
