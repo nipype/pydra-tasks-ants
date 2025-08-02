@@ -1,7 +1,7 @@
 # name of the package to generate, e.g. pydra.tasks.mriqc
 name: pydra.tasks.ants
 # name of the nipype package to generate from (e.g. mriqc)
-nipype_name: ants
+nipype_name: nipype.interfaces.ants
 # Whether the package is an interface-only package (i.e. only contains interfaces and not workflows)
 interface_only: null
 # The name of the global struct/dict that contains workflow inputs that are to be converted to inputs of the function along with the type of the struct, either "dict" or "class"
@@ -31,3 +31,4 @@ init_depth: 3
 auto_import_init_depth: 4
 # Packages that should be copied directly into the new package without modification
 copy_packages: null
+target_version: v2
