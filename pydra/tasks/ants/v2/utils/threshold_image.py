@@ -24,20 +24,20 @@ class ThresholdImage(shell.Task["ThresholdImage.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.threshold_image import ThresholdImage
 
     >>> task = ThresholdImage()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.input_mask = File.mock()
-    >>> task.inputs.th_low = 0.5
-    >>> task.inputs.inside_value = 1.0
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.input_mask = File.mock()
+    >>> task.th_low = 0.5
+    >>> task.inside_value = 1.0
     >>> task.cmdline
     'None'
 
 
     >>> task = ThresholdImage()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.mode = "Kmeans"
-    >>> task.inputs.input_mask = File.mock()
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.mode = "Kmeans"
+    >>> task.input_mask = File.mock()
     >>> task.cmdline
     'None'
 

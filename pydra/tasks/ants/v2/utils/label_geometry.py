@@ -19,16 +19,16 @@ class LabelGeometry(shell.Task["LabelGeometry.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.label_geometry import LabelGeometry
 
     >>> task = LabelGeometry()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.label_image = File.mock()
-    >>> task.inputs.intensity_image = NiftiGz.mock()
+    >>> task.dimension = 3
+    >>> task.label_image = File.mock()
+    >>> task.intensity_image = NiftiGz.mock()
     >>> task.cmdline
     'None'
 
 
     >>> task = LabelGeometry()
-    >>> task.inputs.label_image = File.mock()
-    >>> task.inputs.intensity_image = NiftiGz.mock("ants_Warp.nii.gz")
+    >>> task.label_image = File.mock()
+    >>> task.intensity_image = NiftiGz.mock("ants_Warp.nii.gz")
     >>> task.cmdline
     'LabelGeometryMeasures 3 atlas.nii.gz ants_Warp.nii.gz atlas.csv'
 

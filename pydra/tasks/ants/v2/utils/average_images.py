@@ -37,8 +37,8 @@ class AverageImages(shell.Task["AverageImages.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.average_images import AverageImages
 
     >>> task = AverageImages()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.normalize = True
+    >>> task.dimension = 3
+    >>> task.normalize = True
     >>> task.cmdline
     'None'
 

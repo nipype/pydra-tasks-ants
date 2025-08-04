@@ -86,17 +86,17 @@ class WarpTimeSeriesImageMultiTransform(
     >>> from pydra.tasks.ants.v2.resampling.warp_time_series_image_multi_transform import WarpTimeSeriesImageMultiTransform
 
     >>> task = WarpTimeSeriesImageMultiTransform()
-    >>> task.inputs.input_image = Nifti1.mock("resting.nii")
-    >>> task.inputs.reference_image = File.mock()
-    >>> task.inputs.transformation_series = [NiftiGz.mock("ants_Warp.nii.gz"), NiftiGz.mock("ants_Affine.txt")]
+    >>> task.input_image = Nifti1.mock("resting.nii")
+    >>> task.reference_image = File.mock()
+    >>> task.transformation_series = [NiftiGz.mock("ants_Warp.nii.gz"), NiftiGz.mock("ants_Affine.txt")]
     >>> task.cmdline
     'WarpTimeSeriesImageMultiTransform 4 resting.nii resting_wtsimt.nii -R ants_deformed.nii.gz ants_Warp.nii.gz ants_Affine.txt'
 
 
     >>> task = WarpTimeSeriesImageMultiTransform()
-    >>> task.inputs.input_image = Nifti1.mock("resting.nii")
-    >>> task.inputs.reference_image = File.mock()
-    >>> task.inputs.transformation_series = [NiftiGz.mock("ants_Warp.nii.gz"), NiftiGz.mock("ants_Affine.txt")]
+    >>> task.input_image = Nifti1.mock("resting.nii")
+    >>> task.reference_image = File.mock()
+    >>> task.transformation_series = [NiftiGz.mock("ants_Warp.nii.gz"), NiftiGz.mock("ants_Affine.txt")]
     >>> task.cmdline
     'WarpTimeSeriesImageMultiTransform 4 resting.nii resting_wtsimt.nii -R ants_deformed.nii.gz ants_Warp.nii.gz -i ants_Affine.txt'
 

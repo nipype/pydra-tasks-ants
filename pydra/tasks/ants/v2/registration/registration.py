@@ -460,152 +460,152 @@ class Registration(shell.Task["Registration.Outputs"]):
     >>> from pydra.utils.typing import MultiInputObj
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image = [Nifti1.mock("f"), Nifti1.mock("i"), Nifti1.mock("x"), Nifti1.mock("e"), Nifti1.mock("d"), Nifti1.mock("1"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.metric_weight = [1]*2 # Default (value ignored currently by ANTs)
-    >>> task.inputs.sampling_strategy = ["Random", None]
-    >>> task.inputs.use_histogram_matching = [True, True] # This is the default
-    >>> task.inputs.write_composite_transform = True
-    >>> task.inputs.initialize_transforms_per_stage = False
-    >>> task.inputs.transforms = ["Affine", "SyN"]
-    >>> task.inputs.number_of_iterations = [[1500, 200], [100, 50, 30]]
-    >>> task.inputs.smoothing_sigmas = [[1,0], [2,1,0]]
-    >>> task.inputs.shrink_factors = [[2,1], [3,2,1]]
-    >>> task.inputs.convergence_threshold = [1.e-8, 1.e-9]
-    >>> task.inputs.output_transform_prefix = "output_"
+    >>> task.fixed_image = [Nifti1.mock("f"), Nifti1.mock("i"), Nifti1.mock("x"), Nifti1.mock("e"), Nifti1.mock("d"), Nifti1.mock("1"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.metric_weight = [1]*2 # Default (value ignored currently by ANTs)
+    >>> task.sampling_strategy = ["Random", None]
+    >>> task.use_histogram_matching = [True, True] # This is the default
+    >>> task.write_composite_transform = True
+    >>> task.initialize_transforms_per_stage = False
+    >>> task.transforms = ["Affine", "SyN"]
+    >>> task.number_of_iterations = [[1500, 200], [100, 50, 30]]
+    >>> task.smoothing_sigmas = [[1,0], [2,1,0]]
+    >>> task.shrink_factors = [[2,1], [3,2,1]]
+    >>> task.convergence_threshold = [1.e-8, 1.e-9]
+    >>> task.output_transform_prefix = "output_"
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 0 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.invert_initial_moving_transform = True
-    >>> task.inputs.winsorize_lower_quantile = 0.025
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.invert_initial_moving_transform = True
+    >>> task.winsorize_lower_quantile = 0.025
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.025, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.winsorize_upper_quantile = 0.975
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.winsorize_upper_quantile = 0.975
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 0.975 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.winsorize_lower_quantile = 0.025
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.winsorize_lower_quantile = 0.025
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.025, 0.975 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.float = True
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.float = True
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --float 1 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.float = False
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.float = False
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --float 0 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.save_state = "trans.mat"
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.initialize_transforms_per_stage = True
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.save_state = "trans.mat"
+    >>> task.restore_state = File.mock()
+    >>> task.initialize_transforms_per_stage = True
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 1 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 1 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --restore-state trans.mat --save-state trans.mat --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.write_composite_transform = False
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.write_composite_transform = False
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 1 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 1 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --restore-state trans.mat --save-state trans.mat --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 0'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image = [Nifti1.mock("f"), Nifti1.mock("i"), Nifti1.mock("x"), Nifti1.mock("e"), Nifti1.mock("d"), Nifti1.mock("1"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.metric = ["Mattes", ["Mattes", "CC"]]
-    >>> task.inputs.radius_or_number_of_bins = [32, [32, 4] ]
-    >>> task.inputs.sampling_percentage = [0.05, [0.05, 0.10]]
+    >>> task.fixed_image = [Nifti1.mock("f"), Nifti1.mock("i"), Nifti1.mock("x"), Nifti1.mock("e"), Nifti1.mock("d"), Nifti1.mock("1"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.metric = ["Mattes", ["Mattes", "CC"]]
+    >>> task.radius_or_number_of_bins = [32, [32, 4] ]
+    >>> task.sampling_percentage = [0.05, [0.05, 0.10]]
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 0.5, 32, None, 0.05 ] --metric CC[ fixed1.nii, moving1.nii, 0.5, 4, None, 0.1 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image = [Nifti1.mock("fixed1.nii"), Nifti1.mock("fixed2.nii")]
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
+    >>> task.fixed_image = [Nifti1.mock("fixed1.nii"), Nifti1.mock("fixed2.nii")]
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 0.5, 32, None, 0.05 ] --metric CC[ fixed2.nii, moving2.nii, 0.5, 4, None, 0.1 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.interpolation = "BSpline"
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.interpolation = "BSpline"
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation BSpline[ 3 ] --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.interpolation = "Gaussian"
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.interpolation = "Gaussian"
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Gaussian[ 1.0, 1.0 ] --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.transforms = ["Affine", "BSplineSyN"]
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.transforms = ["Affine", "BSplineSyN"]
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform BSplineSyN[ 0.25, 26, 0, 3 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.fixed_image_masks = ["NULL", "fixed1.nii"]
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.fixed_image_masks = ["NULL", "fixed1.nii"]
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ trans.mat, 1 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --masks [ NULL, NULL ] --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --masks [ fixed1.nii, NULL ] --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 
 
     >>> task = Registration()
-    >>> task.inputs.fixed_image_mask = File.mock()
-    >>> task.inputs.moving_image_mask = File.mock()
-    >>> task.inputs.restore_state = File.mock()
-    >>> task.inputs.initial_moving_transform = [TextMatrix.mock("func_to_struct.mat"), TextMatrix.mock("ants_Warp.nii.gz")]
+    >>> task.fixed_image_mask = File.mock()
+    >>> task.moving_image_mask = File.mock()
+    >>> task.restore_state = File.mock()
+    >>> task.initial_moving_transform = [TextMatrix.mock("func_to_struct.mat"), TextMatrix.mock("ants_Warp.nii.gz")]
     >>> task.cmdline
     'antsRegistration --collapse-output-transforms 0 --dimensionality 3 --initial-moving-transform [ func_to_struct.mat, 0 ] [ ants_Warp.nii.gz, 0 ] --initialize-transforms-per-stage 0 --interpolation Linear --output [ output_, output_warped_image.nii.gz ] --transform Affine[ 2.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32, Random, 0.05 ] --convergence [ 1500x200, 1e-08, 20 ] --smoothing-sigmas 1.0x0.0vox --shrink-factors 2x1 --use-histogram-matching 1 --transform SyN[ 0.25, 3.0, 0.0 ] --metric Mattes[ fixed1.nii, moving1.nii, 1, 32 ] --convergence [ 100x50x30, 1e-09, 20 ] --smoothing-sigmas 2.0x1.0x0.0vox --shrink-factors 3x2x1 --use-histogram-matching 1 --winsorize-image-intensities [ 0.0, 1.0 ] --write-composite-transform 1'
 

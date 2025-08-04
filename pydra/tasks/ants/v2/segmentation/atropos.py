@@ -189,82 +189,82 @@ class Atropos(shell.Task["Atropos.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.atropos import Atropos
 
     >>> task = Atropos()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.mask_image = Nifti1.mock("mask.nii")
-    >>> task.inputs.initialization = "Random"
-    >>> task.inputs.number_of_tissue_classes = 2
-    >>> task.inputs.likelihood_model = "Gaussian"
-    >>> task.inputs.mrf_smoothing_factor = 0.2
-    >>> task.inputs.mrf_radius = [1, 1, 1]
-    >>> task.inputs.icm_use_synchronous_update = True
-    >>> task.inputs.maximum_number_of_icm_terations = 1
-    >>> task.inputs.n_iterations = 5
-    >>> task.inputs.convergence_threshold = 0.000001
-    >>> task.inputs.posterior_formulation = "Socrates"
-    >>> task.inputs.use_mixture_model_proportions = True
-    >>> task.inputs.save_posteriors = True
+    >>> task.dimension = 3
+    >>> task.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.mask_image = Nifti1.mock("mask.nii")
+    >>> task.initialization = "Random"
+    >>> task.number_of_tissue_classes = 2
+    >>> task.likelihood_model = "Gaussian"
+    >>> task.mrf_smoothing_factor = 0.2
+    >>> task.mrf_radius = [1, 1, 1]
+    >>> task.icm_use_synchronous_update = True
+    >>> task.maximum_number_of_icm_terations = 1
+    >>> task.n_iterations = 5
+    >>> task.convergence_threshold = 0.000001
+    >>> task.posterior_formulation = "Socrates"
+    >>> task.use_mixture_model_proportions = True
+    >>> task.save_posteriors = True
     >>> task.cmdline
     'None'
 
 
     >>> task = Atropos()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.mask_image = Nifti1.mock("mask.nii")
-    >>> task.inputs.initialization = "KMeans"
-    >>> task.inputs.number_of_tissue_classes = 2
-    >>> task.inputs.likelihood_model = "Gaussian"
-    >>> task.inputs.mrf_smoothing_factor = 0.2
-    >>> task.inputs.mrf_radius = [1, 1, 1]
-    >>> task.inputs.icm_use_synchronous_update = True
-    >>> task.inputs.maximum_number_of_icm_terations = 1
-    >>> task.inputs.n_iterations = 5
-    >>> task.inputs.convergence_threshold = 0.000001
-    >>> task.inputs.posterior_formulation = "Socrates"
-    >>> task.inputs.use_mixture_model_proportions = True
-    >>> task.inputs.save_posteriors = True
+    >>> task.dimension = 3
+    >>> task.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.mask_image = Nifti1.mock("mask.nii")
+    >>> task.initialization = "KMeans"
+    >>> task.number_of_tissue_classes = 2
+    >>> task.likelihood_model = "Gaussian"
+    >>> task.mrf_smoothing_factor = 0.2
+    >>> task.mrf_radius = [1, 1, 1]
+    >>> task.icm_use_synchronous_update = True
+    >>> task.maximum_number_of_icm_terations = 1
+    >>> task.n_iterations = 5
+    >>> task.convergence_threshold = 0.000001
+    >>> task.posterior_formulation = "Socrates"
+    >>> task.use_mixture_model_proportions = True
+    >>> task.save_posteriors = True
     >>> task.cmdline
     'Atropos --image-dimensionality 3 --icm [1,1] --initialization KMeans[2,100,200] --intensity-image structural.nii --likelihood-model Gaussian --mask-image mask.nii --mrf [0.2,1x1x1] --convergence [5,1e-06] --output [structural_labeled.nii,POSTERIOR_%02d.nii.gz] --posterior-formulation Socrates[1] --use-random-seed 1'
 
 
     >>> task = Atropos()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.mask_image = Nifti1.mock("mask.nii")
-    >>> task.inputs.initialization = "PriorProbabilityImages"
-    >>> task.inputs.number_of_tissue_classes = 2
-    >>> task.inputs.prior_weighting = 0.8
-    >>> task.inputs.likelihood_model = "Gaussian"
-    >>> task.inputs.mrf_smoothing_factor = 0.2
-    >>> task.inputs.mrf_radius = [1, 1, 1]
-    >>> task.inputs.icm_use_synchronous_update = True
-    >>> task.inputs.maximum_number_of_icm_terations = 1
-    >>> task.inputs.n_iterations = 5
-    >>> task.inputs.convergence_threshold = 0.000001
-    >>> task.inputs.posterior_formulation = "Socrates"
-    >>> task.inputs.use_mixture_model_proportions = True
-    >>> task.inputs.save_posteriors = True
+    >>> task.dimension = 3
+    >>> task.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.mask_image = Nifti1.mock("mask.nii")
+    >>> task.initialization = "PriorProbabilityImages"
+    >>> task.number_of_tissue_classes = 2
+    >>> task.prior_weighting = 0.8
+    >>> task.likelihood_model = "Gaussian"
+    >>> task.mrf_smoothing_factor = 0.2
+    >>> task.mrf_radius = [1, 1, 1]
+    >>> task.icm_use_synchronous_update = True
+    >>> task.maximum_number_of_icm_terations = 1
+    >>> task.n_iterations = 5
+    >>> task.convergence_threshold = 0.000001
+    >>> task.posterior_formulation = "Socrates"
+    >>> task.use_mixture_model_proportions = True
+    >>> task.save_posteriors = True
     >>> task.cmdline
     'Atropos --image-dimensionality 3 --icm [1,1] --initialization PriorProbabilityImages[2,BrainSegmentationPrior%02d.nii.gz,0.8,1e-07] --intensity-image structural.nii --likelihood-model Gaussian --mask-image mask.nii --mrf [0.2,1x1x1] --convergence [5,1e-06] --output [structural_labeled.nii,POSTERIOR_%02d.nii.gz] --posterior-formulation Socrates[1] --use-random-seed 1'
 
 
     >>> task = Atropos()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.mask_image = Nifti1.mock("mask.nii")
-    >>> task.inputs.initialization = "PriorLabelImage"
-    >>> task.inputs.number_of_tissue_classes = 2
-    >>> task.inputs.likelihood_model = "Gaussian"
-    >>> task.inputs.mrf_smoothing_factor = 0.2
-    >>> task.inputs.mrf_radius = [1, 1, 1]
-    >>> task.inputs.icm_use_synchronous_update = True
-    >>> task.inputs.maximum_number_of_icm_terations = 1
-    >>> task.inputs.n_iterations = 5
-    >>> task.inputs.convergence_threshold = 0.000001
-    >>> task.inputs.posterior_formulation = "Socrates"
-    >>> task.inputs.use_mixture_model_proportions = True
-    >>> task.inputs.save_posteriors = True
+    >>> task.dimension = 3
+    >>> task.intensity_images = [Nifti1.mock("s"), Nifti1.mock("t"), Nifti1.mock("r"), Nifti1.mock("u"), Nifti1.mock("c"), Nifti1.mock("t"), Nifti1.mock("u"), Nifti1.mock("r"), Nifti1.mock("a"), Nifti1.mock("l"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.mask_image = Nifti1.mock("mask.nii")
+    >>> task.initialization = "PriorLabelImage"
+    >>> task.number_of_tissue_classes = 2
+    >>> task.likelihood_model = "Gaussian"
+    >>> task.mrf_smoothing_factor = 0.2
+    >>> task.mrf_radius = [1, 1, 1]
+    >>> task.icm_use_synchronous_update = True
+    >>> task.maximum_number_of_icm_terations = 1
+    >>> task.n_iterations = 5
+    >>> task.convergence_threshold = 0.000001
+    >>> task.posterior_formulation = "Socrates"
+    >>> task.use_mixture_model_proportions = True
+    >>> task.save_posteriors = True
     >>> task.cmdline
     'Atropos --image-dimensionality 3 --icm [1,1] --initialization PriorLabelImage[2,segmentation0.nii.gz,0.8] --intensity-image structural.nii --likelihood-model Gaussian --mask-image mask.nii --mrf [0.2,1x1x1] --convergence [5,1e-06] --output [structural_labeled.nii,POSTERIOR_%02d.nii.gz] --posterior-formulation Socrates[1] --use-random-seed 1'
 

@@ -80,40 +80,40 @@ class ApplyTransforms(shell.Task["ApplyTransforms.Outputs"]):
     >>> from pydra.utils.typing import MultiInputObj
 
     >>> task = ApplyTransforms()
-    >>> task.inputs.input_image = Nifti1.mock("moving1.nii")
-    >>> task.inputs.reference_image = Nifti1.mock()
-    >>> task.inputs.transforms = "identity"
+    >>> task.input_image = Nifti1.mock("moving1.nii")
+    >>> task.reference_image = Nifti1.mock()
+    >>> task.transforms = "identity"
     >>> task.cmdline
     'antsApplyTransforms --default-value 0 --float 0 --input moving1.nii --interpolation Linear --output moving1_trans.nii --reference-image fixed1.nii --transform identity'
 
 
     >>> task = ApplyTransforms()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.reference_image = Nifti1.mock("fixed1.nii")
-    >>> task.inputs.interpolation = "Linear"
-    >>> task.inputs.transforms = ["ants_Warp.nii.gz", "trans.mat"]
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock()
+    >>> task.reference_image = Nifti1.mock("fixed1.nii")
+    >>> task.interpolation = "Linear"
+    >>> task.transforms = ["ants_Warp.nii.gz", "trans.mat"]
     >>> task.cmdline
     'antsApplyTransforms --default-value 0 --dimensionality 3 --float 0 --input moving1.nii --interpolation Linear --output deformed_moving1.nii --reference-image fixed1.nii --transform ants_Warp.nii.gz --transform [ trans.mat, 1 ]'
 
 
     >>> task = ApplyTransforms()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.reference_image = Nifti1.mock("fixed1.nii")
-    >>> task.inputs.interpolation = "BSpline"
-    >>> task.inputs.invert_transform_flags = [False, False]
-    >>> task.inputs.default_value = 0
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock()
+    >>> task.reference_image = Nifti1.mock("fixed1.nii")
+    >>> task.interpolation = "BSpline"
+    >>> task.invert_transform_flags = [False, False]
+    >>> task.default_value = 0
     >>> task.cmdline
     'antsApplyTransforms --default-value 0 --dimensionality 3 --float 0 --input moving1.nii --interpolation BSpline[ 5 ] --output deformed_moving1.nii --reference-image fixed1.nii --transform ants_Warp.nii.gz --transform trans.mat'
 
 
     >>> task = ApplyTransforms()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.reference_image = Nifti1.mock("fixed1.nii")
-    >>> task.inputs.interpolation = "BSpline"
-    >>> task.inputs.default_value = 0
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock()
+    >>> task.reference_image = Nifti1.mock("fixed1.nii")
+    >>> task.interpolation = "BSpline"
+    >>> task.default_value = 0
     >>> task.cmdline
     'antsApplyTransforms --default-value 0 --dimensionality 3 --float 0 --input moving1.nii --interpolation BSpline[ 5 ] --output deformed_moving1.nii --reference-image fixed1.nii --transform identity --transform ants_Warp.nii.gz --transform trans.mat'
 

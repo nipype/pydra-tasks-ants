@@ -37,9 +37,9 @@ class MultiplyImages(shell.Task["MultiplyImages.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.multiply_images import MultiplyImages
 
     >>> task = MultiplyImages()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.first_input = File.mock()
-    >>> task.inputs.second_input = 0.25
+    >>> task.dimension = 3
+    >>> task.first_input = File.mock()
+    >>> task.second_input = 0.25
     >>> task.cmdline
     'None'
 

@@ -20,33 +20,33 @@ class ImageMath(shell.Task["ImageMath.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.image_math import ImageMath
 
     >>> task = ImageMath()
-    >>> task.inputs.operation = "+"
-    >>> task.inputs.op1 = Nifti1.mock("structural.nii")
-    >>> task.inputs.op2 = "2"
+    >>> task.operation = "+"
+    >>> task.op1 = Nifti1.mock("structural.nii")
+    >>> task.op2 = "2"
     >>> task.cmdline
     'None'
 
 
     >>> task = ImageMath()
-    >>> task.inputs.operation = "Project"
-    >>> task.inputs.op1 = Nifti1.mock("structural.nii")
-    >>> task.inputs.op2 = "1 2"
+    >>> task.operation = "Project"
+    >>> task.op1 = Nifti1.mock("structural.nii")
+    >>> task.op2 = "1 2"
     >>> task.cmdline
     'ImageMath 3 structural_maths.nii Project structural.nii 1 2'
 
 
     >>> task = ImageMath()
-    >>> task.inputs.operation = "G"
-    >>> task.inputs.op1 = Nifti1.mock("structural.nii")
-    >>> task.inputs.op2 = "4"
+    >>> task.operation = "G"
+    >>> task.op1 = Nifti1.mock("structural.nii")
+    >>> task.op2 = "4"
     >>> task.cmdline
     'ImageMath 3 structural_maths.nii G structural.nii 4'
 
 
     >>> task = ImageMath()
-    >>> task.inputs.operation = "TruncateImageIntensity"
-    >>> task.inputs.op1 = Nifti1.mock("structural.nii")
-    >>> task.inputs.op2 = "0.005 0.999 256"
+    >>> task.operation = "TruncateImageIntensity"
+    >>> task.op1 = Nifti1.mock("structural.nii")
+    >>> task.op2 = "0.005 0.999 256"
     >>> task.cmdline
     'ImageMath 3 structural_maths.nii TruncateImageIntensity structural.nii 0.005 0.999 256'
 

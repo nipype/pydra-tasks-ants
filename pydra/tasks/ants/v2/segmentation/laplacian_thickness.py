@@ -18,16 +18,16 @@ class LaplacianThickness(shell.Task["LaplacianThickness.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.laplacian_thickness import LaplacianThickness
 
     >>> task = LaplacianThickness()
-    >>> task.inputs.input_wm = NiftiGz.mock("white_matter.nii.gz")
-    >>> task.inputs.input_gm = File.mock()
+    >>> task.input_wm = NiftiGz.mock("white_matter.nii.gz")
+    >>> task.input_gm = File.mock()
     >>> task.cmdline
     'LaplacianThickness white_matter.nii.gz gray_matter.nii.gz white_matter_thickness.nii.gz'
 
 
     >>> task = LaplacianThickness()
-    >>> task.inputs.input_wm = NiftiGz.mock()
-    >>> task.inputs.input_gm = File.mock()
-    >>> task.inputs.output_image = "output_thickness.nii.gz"
+    >>> task.input_wm = NiftiGz.mock()
+    >>> task.input_gm = File.mock()
+    >>> task.output_image = "output_thickness.nii.gz"
     >>> task.cmdline
     'LaplacianThickness white_matter.nii.gz gray_matter.nii.gz output_thickness.nii.gz'
 

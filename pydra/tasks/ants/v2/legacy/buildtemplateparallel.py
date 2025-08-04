@@ -108,7 +108,7 @@ class buildtemplateparallel(shell.Task["buildtemplateparallel.Outputs"]):
     >>> from pydra.tasks.ants.v2.legacy.buildtemplateparallel import buildtemplateparallel
 
     >>> task = buildtemplateparallel()
-    >>> task.inputs.in_files = [Nifti1.mock("T1.nii"), Nifti1.mock("structural.nii")]
+    >>> task.in_files = [Nifti1.mock("T1.nii"), Nifti1.mock("structural.nii")]
     >>> task.cmdline
     'buildtemplateparallel.sh -d 3 -i 4 -m 30x90x20 -o antsTMPL_ -c 0 -t GR T1.nii structural.nii'
 

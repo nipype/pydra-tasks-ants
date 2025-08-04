@@ -145,14 +145,14 @@ class ANTS(shell.Task["ANTS.Outputs"]):
     >>> from pydra.tasks.ants.v2.registration.ants import ANTS
 
     >>> task = ANTS()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.moving_image = [Nifti1.mock("resting.nii")]
-    >>> task.inputs.metric = ["CC"]
-    >>> task.inputs.radius = [5]
-    >>> task.inputs.gradient_step_length = 0.25
-    >>> task.inputs.use_histogram_matching = True
-    >>> task.inputs.regularization = "Gauss"
-    >>> task.inputs.regularization_deformation_field_sigma = 0
+    >>> task.dimension = 3
+    >>> task.moving_image = [Nifti1.mock("resting.nii")]
+    >>> task.metric = ["CC"]
+    >>> task.radius = [5]
+    >>> task.gradient_step_length = 0.25
+    >>> task.use_histogram_matching = True
+    >>> task.regularization = "Gauss"
+    >>> task.regularization_deformation_field_sigma = 0
     >>> task.cmdline
     'ANTS 3 --MI-option 32x16000 --image-metric CC[ T1.nii, resting.nii, 1, 5 ] --number-of-affine-iterations 10000x10000x10000x10000x10000 --number-of-iterations 50x35x15 --output-naming MY --regularization Gauss[3.0,0.0] --transformation-model SyN[0.25] --use-Histogram-Matching 1'
 

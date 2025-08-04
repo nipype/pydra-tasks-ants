@@ -38,9 +38,9 @@ class CreateJacobianDeterminantImage(
     >>> from pydra.tasks.ants.v2.utils.create_jacobian_determinant_image import CreateJacobianDeterminantImage
 
     >>> task = CreateJacobianDeterminantImage()
-    >>> task.inputs.imageDimension = 3
-    >>> task.inputs.deformationField = File.mock()
-    >>> task.inputs.outputImage = NiftiGz.mock("out_name.nii.gz")
+    >>> task.imageDimension = 3
+    >>> task.deformationField = File.mock()
+    >>> task.outputImage = NiftiGz.mock("out_name.nii.gz")
     >>> task.cmdline
     'None'
 
