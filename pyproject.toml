@@ -69,6 +69,9 @@ test = [
 
 [tool.hatch.build]
 packages = ["pydra"]
+exclude = [
+  "pydra/**/tests",
+]
 
 [tool.hatch.version]
 source = "vcs"
