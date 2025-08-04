@@ -109,7 +109,7 @@ addopts = [
   "--strict-config",
   "--strict-markers",
   # "--doctest-modules",
-  "--import-mode=importlib",
+  # "--import-mode=importlib",
   # Config pytest-cov
   "--cov=pydra",
   "--cov-report=xml",
