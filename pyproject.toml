@@ -66,14 +66,17 @@ test = [
   "fileformats-datascience-extras",
 ]
 
+[tool.hatch.build]
+packages = ["pydra.tasks.ants"]
+
 [tool.hatch.version]
 source = "vcs"
 
 [tool.hatch.build.hooks.vcs]
 version-file = "pydra/tasks/ants/_version.py"
 
-[tool.hatch.build.targets.wheel]
-include-only = ["pydra/tasks/ants"]
+# [tool.hatch.build.targets.wheel]
+# include-only = ["pydra/tasks/ants"]
 
 [tool.black]
 target-version = ["py38"]
@@ -100,7 +103,7 @@ python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 [tool.pytest.ini_options]
 minversion = "6.0"
 # addopts = ["--doctest-modules", "--doctest-continue-on-failure"]
-testpaths = ["pydra"]
+testpaths = ["pydra/tasks/ants"]
 log_cli_level = "INFO"
 xfail_strict = true
 addopts = [
@@ -111,7 +114,7 @@ addopts = [
   # "--doctest-modules",
   # "--import-mode=importlib",
   # Config pytest-cov
-  "--cov=pydra",
+  "--cov=pydra.tasks.ants",
   "--cov-report=xml",
   "--cov-config=pyproject.toml",
 ]
