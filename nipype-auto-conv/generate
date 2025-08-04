@@ -14,19 +14,25 @@ echo "Automatically converting Nipype tasks to Pydra tasks..."
 
 echo "Apply latest changes to nipype-auto-conv specs to auto-conv branch..."
 git fetch origin auto-conv
-git checkout auto-conv
-git reset --hard $CURRENT_BRANCH
-git add $conv_dir/specs
+git checkout -b ${CURRENT_BRANCH}-auto-conv
+git reset origin/auto-conv
+git add $conv_dir/nipype-auto-conv
 git commit -m "Update auto-conv specs with latest changes from '$CURRENT_BRANCH'"
+# Ignore any other changes outside the auto-conv directory
 git reset --hard HEAD
 
 
 echo "Running nipype2pydra conversion..."
 nipype2pydra convert $conv_dir/specs $conv_dir/..
 
-echo "Committing converted tasks..."
+
+echo "Committing converted tasks to ${CURRENT_BRANCH}-auto-conv..."
 git add pydra/tasks/ants
 git commit -m "Auto-converted Nipype tasks to Pydra tasks"
+
+echo "Updating auto-conv branch with latest changes..."
+git checkout auto-conv
+git merge --ff-only ${CURRENT_BRANCH}-auto-conv
 
 echo "Rebasing '$CURRENT_BRANCH' to apply changes..."
 git checkout $CURRENT_BRANCH
