@@ -1,3 +1,3 @@
-PACKAGE_VERSION = "v2_5"
+PACKAGE_VERSION = "v2"
 
-from .v2_5 import *  # noqa
+from .v2 import *  # noqa
