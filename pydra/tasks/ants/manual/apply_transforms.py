@@ -4,8 +4,7 @@ from os import PathLike
 from typing import Sequence
 
 from attrs import define, field
-from pydra.engine.specs import ShellSpec, SpecInfo
-from pydra.engine.task import ShellCommandTask
+from pydra.compose import shell
 
 
 def _format_output(
@@ -44,7 +43,7 @@ def _format_interpolation(
     )
 
 
-class ApplyTransforms(ShellCommandTask):
+class ApplyTransforms:
     """Task definition for antsApplyTransforms.
 
     Examples
@@ -76,7 +75,7 @@ class ApplyTransforms(ShellCommandTask):
     """
 
     @define(kw_only=True)
-    class InputSpec(ShellSpec):
+    class InputSpec:
         dimensionality: int = field(
             metadata={
                 "help_string": "image dimensionality",
@@ -247,6 +246,6 @@ class ApplyTransforms(ShellCommandTask):
             },
         )
 
-    input_spec = SpecInfo(name="Input", bases=(InputSpec,))
+    input_spec = None  # SpecInfo(name="Input", bases=(InputSpec,))
 
     executable = "antsApplyTransforms"

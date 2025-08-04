@@ -60,7 +60,7 @@ def output_transform_callable(output_dir, inputs, stdout, stderr):
     return outputs.get("output_transform")
 
 
-@shell.define(xor=[["blobs", "principal_axes"]])
+@shell.define
 class AI(shell.Task["AI.Outputs"]):
     """
     Examples
@@ -86,7 +86,7 @@ class AI(shell.Task["AI.Outputs"]):
     fixed_image_mask: File = shell.arg(
         help="fixed mage mask", formatter="fixed_image_mask_formatter"
     )
-    moving_image_mask: File = shell.arg(
+    moving_image_mask: File | None = shell.arg(
         help="moving mage mask", requires=["fixed_image_mask"]
     )
     metric: ty.Any = shell.arg(

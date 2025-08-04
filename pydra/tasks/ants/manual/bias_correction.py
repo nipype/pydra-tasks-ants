@@ -2,13 +2,12 @@ from os import PathLike
 from typing import Sequence
 
 from attrs import define, field
-from pydra.engine.specs import ShellSpec, SpecInfo
-from pydra.engine.task import ShellCommandTask
+from pydra.compose import shell
 
 __all__ = ["N4BiasFieldCorrection"]
 
 
-class N4BiasFieldCorrection(ShellCommandTask):
+class N4BiasFieldCorrection:
     """Task definition for N4BiasFieldCorrection.
 
     Examples
@@ -20,7 +19,7 @@ class N4BiasFieldCorrection(ShellCommandTask):
     """
 
     @define(kw_only=True)
-    class InputSpec(ShellSpec):
+    class InputSpec:
         dimensionality: int = field(
             metadata={
                 "help_string": "image dimensionality",
@@ -137,6 +136,6 @@ class N4BiasFieldCorrection(ShellCommandTask):
             }
         )
 
-    input_spec = SpecInfo(name="Input", bases=(InputSpec,))
+    input_spec = None  # SpecInfo(name="Input", bases=(InputSpec,))
 
     executable = "N4BiasFieldCorrection"

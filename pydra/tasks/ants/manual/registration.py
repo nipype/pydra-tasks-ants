@@ -4,8 +4,8 @@ from pathlib import Path
 from typing import Optional, Sequence
 
 from attrs import NOTHING, define, field
-from pydra.engine.specs import File, ShellOutSpec, ShellSpec, SpecInfo
-from pydra.engine.task import ShellCommandTask
+from pydra.compose import shell
+from fileformats.generic import File
 
 __all__ = ["Registration", "registration_syn", "registration_syn_quick"]
 
@@ -105,11 +105,11 @@ def _format_syn_transform_type(
     )
 
 
-class Registration(ShellCommandTask):
+class Registration:
     """Task definition for antsRegistration."""
 
     @define(kw_only=True)
-    class InputSpec(ShellSpec):
+    class InputSpec:
         dimensionality: int = field(
             default=3,
             metadata={
@@ -701,10 +701,10 @@ class Registration(ShellCommandTask):
             },
         )
 
-    input_spec = SpecInfo(name="Input", bases=(InputSpec,))
+    input_spec = None  # SpecInfo(name="Input", bases=(InputSpec,))
 
     @define(kw_only=True)
-    class OutputSpec(ShellOutSpec):
+    class OutputSpec:
         affine_transform: File = field(
             metadata={
                 "help_string": "affine transform",
@@ -731,7 +731,7 @@ class Registration(ShellCommandTask):
             }
         )
 
-    output_spec = SpecInfo(name="Output", bases=(OutputSpec,))
+    output_spec = None  # SpecInfo(name="Output", bases=(OutputSpec,))
 
     executable = "antsRegistration"
 

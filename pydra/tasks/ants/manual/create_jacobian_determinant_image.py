@@ -1,13 +1,12 @@
 from os import PathLike
 
 from attrs import define, field
-from pydra.engine.specs import ShellSpec, SpecInfo
-from pydra.engine.task import ShellCommandTask
+from pydra.compose import shell
 
 __all__ = ["CreateJacobianDeterminantImage"]
 
 
-class CreateJacobianDeterminantImage(ShellCommandTask):
+class CreateJacobianDeterminantImage:
     """Task definition for CreateJacobianDeterminantImage.
 
     Examples
@@ -20,7 +19,7 @@ class CreateJacobianDeterminantImage(ShellCommandTask):
     """
 
     @define(kw_only=True)
-    class InputSpec(ShellSpec):
+    class InputSpec:
         dimensionality: int = field(
             metadata={
                 "help_string": "image dimensionality",
@@ -62,6 +61,6 @@ class CreateJacobianDeterminantImage(ShellCommandTask):
             },
         )
 
-    input_spec = SpecInfo(name="Input", bases=(InputSpec,))
+    input_spec = None  # SpecInfo(name="Input", bases=(InputSpec,))
 
     executable = "CreateJacobianDeterminantImage"
