@@ -439,10 +439,10 @@ def elapsed_time_callable(output_dir, inputs, stdout, stderr):
 
 @shell.define(
     xor=[
-        ["initial_moving_transform", "initial_moving_transform_com"],
-        ["moving_image_mask", "moving_image_masks"],
-        ["initial_moving_transform_com", "invert_initial_moving_transform"],
         ["fixed_image_mask", "fixed_image_masks"],
+        ["initial_moving_transform", "initial_moving_transform_com"],
+        ["initial_moving_transform_com", "invert_initial_moving_transform"],
+        ["moving_image_mask", "moving_image_masks"],
     ]
 )
 class Registration(shell.Task["Registration.Outputs"]):
