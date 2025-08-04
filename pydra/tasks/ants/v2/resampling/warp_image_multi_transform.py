@@ -77,17 +77,17 @@ class WarpImageMultiTransform(shell.Task["WarpImageMultiTransform.Outputs"]):
     >>> from pydra.tasks.ants.v2.resampling.warp_image_multi_transform import WarpImageMultiTransform
 
     >>> task = WarpImageMultiTransform()
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.reference_image = File.mock()
-    >>> task.inputs.transformation_series = ["ants_Warp.nii.gz","ants_Affine.txt"]
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.reference_image = File.mock()
+    >>> task.transformation_series = ["ants_Warp.nii.gz","ants_Affine.txt"]
     >>> task.cmdline
     'WarpImageMultiTransform 3 structural.nii structural_wimt.nii -R ants_deformed.nii.gz ants_Warp.nii.gz ants_Affine.txt'
 
 
     >>> task = WarpImageMultiTransform()
-    >>> task.inputs.input_image = Nifti1.mock("diffusion_weighted.nii")
-    >>> task.inputs.reference_image = File.mock()
-    >>> task.inputs.transformation_series = ["func2anat_coreg_Affine.txt","func2anat_InverseWarp.nii.gz",     "dwi2anat_Warp.nii.gz","dwi2anat_coreg_Affine.txt"]
+    >>> task.input_image = Nifti1.mock("diffusion_weighted.nii")
+    >>> task.reference_image = File.mock()
+    >>> task.transformation_series = ["func2anat_coreg_Affine.txt","func2anat_InverseWarp.nii.gz",     "dwi2anat_Warp.nii.gz","dwi2anat_coreg_Affine.txt"]
     >>> task.cmdline
     'WarpImageMultiTransform 3 diffusion_weighted.nii diffusion_weighted_wimt.nii -R functional.nii -i func2anat_coreg_Affine.txt func2anat_InverseWarp.nii.gz dwi2anat_Warp.nii.gz dwi2anat_coreg_Affine.txt'
 

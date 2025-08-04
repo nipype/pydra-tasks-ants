@@ -34,10 +34,10 @@ class ConvertScalarImageToRGB(shell.Task["ConvertScalarImageToRGB.Outputs"]):
     >>> from pydra.tasks.ants.v2.visualization.convert_scalar_image_to_rgb import ConvertScalarImageToRGB
 
     >>> task = ConvertScalarImageToRGB()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = File.mock()
-    >>> task.inputs.colormap = "jet"
-    >>> task.inputs.maximum_input = 6
+    >>> task.dimension = 3
+    >>> task.input_image = File.mock()
+    >>> task.colormap = "jet"
+    >>> task.maximum_input = 6
     >>> task.cmdline
     'None'
 

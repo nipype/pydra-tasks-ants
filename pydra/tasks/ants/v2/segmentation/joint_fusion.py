@@ -181,48 +181,48 @@ class JointFusion(shell.Task["JointFusion.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.joint_fusion import JointFusion
 
     >>> task = JointFusion()
-    >>> task.inputs.atlas_segmentation_image = [NiftiGz.mock("segmentation0.nii.gz")]
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.out_label_fusion = "ants_fusion_label_output.nii"
+    >>> task.atlas_segmentation_image = [NiftiGz.mock("segmentation0.nii.gz")]
+    >>> task.mask_image = File.mock()
+    >>> task.out_label_fusion = "ants_fusion_label_output.nii"
     >>> task.cmdline
     'None'
 
 
     >>> task = JointFusion()
-    >>> task.inputs.target_image = [ ["im1.nii", "im2.nii"] ]
-    >>> task.inputs.mask_image = File.mock()
+    >>> task.target_image = [ ["im1.nii", "im2.nii"] ]
+    >>> task.mask_image = File.mock()
     >>> task.cmdline
     'antsJointFusion -a 0.1 -g ["rc1s1.nii", "rc1s2.nii"] -l segmentation0.nii.gz -b 2.0 -o ants_fusion_label_output.nii -s 3x3x3 -t ["im1.nii", "im2.nii"]'
 
 
     >>> task = JointFusion()
-    >>> task.inputs.atlas_image = [ ["rc1s1.nii","rc1s2.nii"], ["rc2s1.nii","rc2s2.nii"] ]
-    >>> task.inputs.mask_image = File.mock()
+    >>> task.atlas_image = [ ["rc1s1.nii","rc1s2.nii"], ["rc2s1.nii","rc2s2.nii"] ]
+    >>> task.mask_image = File.mock()
     >>> task.cmdline
     'antsJointFusion -a 0.1 -g ["rc1s1.nii", "rc1s2.nii"] -g ["rc2s1.nii", "rc2s2.nii"] -l segmentation0.nii.gz -l segmentation1.nii.gz -b 2.0 -o ants_fusion_label_output.nii -s 3x3x3 -t ["im1.nii", "im2.nii"]'
 
 
     >>> task = JointFusion()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.beta = 1.0
-    >>> task.inputs.search_radius = [3]
-    >>> task.inputs.mask_image = File.mock()
+    >>> task.dimension = 3
+    >>> task.beta = 1.0
+    >>> task.search_radius = [3]
+    >>> task.mask_image = File.mock()
     >>> task.cmdline
     'antsJointFusion -a 0.5 -g ["rc1s1.nii", "rc1s2.nii"] -g ["rc2s1.nii", "rc2s2.nii"] -l segmentation0.nii.gz -l segmentation1.nii.gz -b 1.0 -d 3 -o ants_fusion_label_output.nii -p 3x2x1 -s 3 -t ["im1.nii", "im2.nii"]'
 
 
     >>> task = JointFusion()
-    >>> task.inputs.search_radius = ["mask.nii"]
-    >>> task.inputs.exclusion_image = [Nifti1.mock("roi01.nii"), Nifti1.mock("roi02.nii")]
-    >>> task.inputs.mask_image = File.mock()
+    >>> task.search_radius = ["mask.nii"]
+    >>> task.exclusion_image = [Nifti1.mock("roi01.nii"), Nifti1.mock("roi02.nii")]
+    >>> task.mask_image = File.mock()
     >>> task.cmdline
     'antsJointFusion -a 0.5 -g ["rc1s1.nii", "rc1s2.nii"] -g ["rc2s1.nii", "rc2s2.nii"] -l segmentation0.nii.gz -l segmentation1.nii.gz -b 1.0 -d 3 -e 1[roi01.nii] -e 2[roi02.nii] -o ants_fusion_label_output.nii -p 3x2x1 -s mask.nii -t ["im1.nii", "im2.nii"] -v'
 
 
     >>> task = JointFusion()
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.out_label_fusion = "ants_fusion_label_output.nii"
-    >>> task.inputs.out_label_post_prob_name_format = "ants_joint_fusion_posterior_%d.nii.gz"
+    >>> task.mask_image = File.mock()
+    >>> task.out_label_fusion = "ants_fusion_label_output.nii"
+    >>> task.out_label_post_prob_name_format = "ants_joint_fusion_posterior_%d.nii.gz"
     >>> task.cmdline
     'antsJointFusion -a 0.5 -g ["rc1s1.nii", "rc1s2.nii"] -g ["rc2s1.nii", "rc2s2.nii"] -l segmentation0.nii.gz -l segmentation1.nii.gz -b 1.0 -d 3 -e 1[roi01.nii] -e 2[roi02.nii] -o [ants_fusion_label_output.nii, ants_joint_fusion_intensity_%d.nii.gz, ants_joint_fusion_posterior_%d.nii.gz, ants_joint_fusion_voting_weight_%d.nii.gz] -p 3x2x1 -s mask.nii -t ["im1.nii", "im2.nii"] -v'
 

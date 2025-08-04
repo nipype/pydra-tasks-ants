@@ -85,9 +85,9 @@ class antsIntroduction(shell.Task["antsIntroduction.Outputs"]):
     >>> from pydra.tasks.ants.v2.legacy.ants_introduction import antsIntroduction
 
     >>> task = antsIntroduction()
-    >>> task.inputs.reference_image = Nifti1.mock("Template_6.nii")
-    >>> task.inputs.input_image = File.mock()
-    >>> task.inputs.max_iterations = [30,90,20]
+    >>> task.reference_image = Nifti1.mock("Template_6.nii")
+    >>> task.input_image = File.mock()
+    >>> task.max_iterations = [30,90,20]
     >>> task.cmdline
     'antsIntroduction.sh -d 3 -i structural.nii -m 30x90x20 -o ants_ -r Template_6.nii -t GR'
 

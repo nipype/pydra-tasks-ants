@@ -100,12 +100,12 @@ class KellyKapowski(shell.Task["KellyKapowski.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.kelly_kapowski import KellyKapowski
 
     >>> task = KellyKapowski()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.segmentation_image = File.mock()
-    >>> task.inputs.gray_matter_prob_image = File.mock()
-    >>> task.inputs.white_matter_prob_image = File.mock()
-    >>> task.inputs.convergence = "[45,0.0,10]"
-    >>> task.inputs.thickness_prior_image = File.mock()
+    >>> task.dimension = 3
+    >>> task.segmentation_image = File.mock()
+    >>> task.gray_matter_prob_image = File.mock()
+    >>> task.white_matter_prob_image = File.mock()
+    >>> task.convergence = "[45,0.0,10]"
+    >>> task.thickness_prior_image = File.mock()
     >>> task.cmdline
     'None'
 

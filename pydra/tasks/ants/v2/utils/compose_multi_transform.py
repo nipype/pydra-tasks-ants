@@ -20,8 +20,8 @@ class ComposeMultiTransform(shell.Task["ComposeMultiTransform.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.compose_multi_transform import ComposeMultiTransform
 
     >>> task = ComposeMultiTransform()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.reference_image = File.mock()
+    >>> task.dimension = 3
+    >>> task.reference_image = File.mock()
     >>> task.cmdline
     'None'
 

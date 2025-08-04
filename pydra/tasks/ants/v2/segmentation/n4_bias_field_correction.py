@@ -110,48 +110,48 @@ class N4BiasFieldCorrection(shell.Task["N4BiasFieldCorrection.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.n4_bias_field_correction import N4BiasFieldCorrection
 
     >>> task = N4BiasFieldCorrection()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.weight_image = File.mock()
-    >>> task.inputs.bspline_fitting_distance = 300
-    >>> task.inputs.n_iterations = [50,50,30,20]
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock()
+    >>> task.mask_image = File.mock()
+    >>> task.weight_image = File.mock()
+    >>> task.bspline_fitting_distance = 300
+    >>> task.n_iterations = [50,50,30,20]
     >>> task.cmdline
     'N4BiasFieldCorrection --bspline-fitting [ 300 ] -d 3 --input-image structural.nii --convergence [ 50x50x30x20 ] --output structural_corrected.nii --shrink-factor 3'
 
 
     >>> task = N4BiasFieldCorrection()
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.weight_image = File.mock()
-    >>> task.inputs.convergence_threshold = 1e-6
+    >>> task.input_image = Nifti1.mock()
+    >>> task.mask_image = File.mock()
+    >>> task.weight_image = File.mock()
+    >>> task.convergence_threshold = 1e-6
     >>> task.cmdline
     'N4BiasFieldCorrection --bspline-fitting [ 300 ] -d 3 --input-image structural.nii --convergence [ 50x50x30x20, 1e-06 ] --output structural_corrected.nii --shrink-factor 3'
 
 
     >>> task = N4BiasFieldCorrection()
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.weight_image = File.mock()
-    >>> task.inputs.bspline_order = 5
+    >>> task.input_image = Nifti1.mock()
+    >>> task.mask_image = File.mock()
+    >>> task.weight_image = File.mock()
+    >>> task.bspline_order = 5
     >>> task.cmdline
     'N4BiasFieldCorrection --bspline-fitting [ 300, 5 ] -d 3 --input-image structural.nii --convergence [ 50x50x30x20, 1e-06 ] --output structural_corrected.nii --shrink-factor 3'
 
 
     >>> task = N4BiasFieldCorrection()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.weight_image = File.mock()
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.mask_image = File.mock()
+    >>> task.weight_image = File.mock()
     >>> task.cmdline
     'N4BiasFieldCorrection -d 3 --input-image structural.nii --output [ structural_corrected.nii, structural_bias.nii ]'
 
 
     >>> task = N4BiasFieldCorrection()
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.mask_image = File.mock()
-    >>> task.inputs.weight_image = File.mock()
-    >>> task.inputs.histogram_sharpening = (0.12, 0.02, 200)
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.mask_image = File.mock()
+    >>> task.weight_image = File.mock()
+    >>> task.histogram_sharpening = (0.12, 0.02, 200)
     >>> task.cmdline
     'N4BiasFieldCorrection -d 3 --histogram-sharpening [0.12,0.02,200] --input-image structural.nii --output structural_corrected.nii'
 

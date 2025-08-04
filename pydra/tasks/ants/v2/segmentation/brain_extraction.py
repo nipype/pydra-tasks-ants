@@ -243,11 +243,11 @@ class BrainExtraction(shell.Task["BrainExtraction.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.brain_extraction import BrainExtraction
 
     >>> task = BrainExtraction()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.anatomical_image = File.mock()
-    >>> task.inputs.brain_template = NiftiGz.mock("study_template.nii.gz")
-    >>> task.inputs.brain_probability_mask = File.mock()
-    >>> task.inputs.extraction_registration_mask = File.mock()
+    >>> task.dimension = 3
+    >>> task.anatomical_image = File.mock()
+    >>> task.brain_template = NiftiGz.mock("study_template.nii.gz")
+    >>> task.brain_probability_mask = File.mock()
+    >>> task.extraction_registration_mask = File.mock()
     >>> task.cmdline
     'None'
 

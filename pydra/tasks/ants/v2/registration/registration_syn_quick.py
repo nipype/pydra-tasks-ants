@@ -85,15 +85,15 @@ class RegistrationSynQuick(shell.Task["RegistrationSynQuick.Outputs"]):
     >>> from pydra.tasks.ants.v2.registration.registration_syn_quick import RegistrationSynQuick
 
     >>> task = RegistrationSynQuick()
-    >>> task.inputs.fixed_image = [Nifti1.mock("f"), Nifti1.mock("i"), Nifti1.mock("x"), Nifti1.mock("e"), Nifti1.mock("d"), Nifti1.mock("1"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
-    >>> task.inputs.num_threads = 2
+    >>> task.fixed_image = [Nifti1.mock("f"), Nifti1.mock("i"), Nifti1.mock("x"), Nifti1.mock("e"), Nifti1.mock("d"), Nifti1.mock("1"), Nifti1.mock("."), Nifti1.mock("n"), Nifti1.mock("i"), Nifti1.mock("i")]
+    >>> task.num_threads = 2
     >>> task.cmdline
     'antsRegistrationSyNQuick.sh -d 3 -f fixed1.nii -r 32 -m moving1.nii -n 2 -o transform -p d -s 26 -t s'
 
 
     >>> task = RegistrationSynQuick()
-    >>> task.inputs.fixed_image = [Nifti1.mock("fixed1.nii"), Nifti1.mock("fixed2.nii")]
-    >>> task.inputs.num_threads = 2
+    >>> task.fixed_image = [Nifti1.mock("fixed1.nii"), Nifti1.mock("fixed2.nii")]
+    >>> task.num_threads = 2
     >>> task.cmdline
     'antsRegistrationSyNQuick.sh -d 3 -f fixed1.nii -f fixed2.nii -r 32 -m moving1.nii -m moving2.nii -n 2 -o transform -p d -s 26 -t s'
 

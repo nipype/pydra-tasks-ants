@@ -42,22 +42,22 @@ class DenoiseImage(shell.Task["DenoiseImage.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.denoise_image import DenoiseImage
 
     >>> task = DenoiseImage()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock()
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock()
     >>> task.cmdline
     'None'
 
 
     >>> task = DenoiseImage()
-    >>> task.inputs.input_image = Nifti1.mock()
-    >>> task.inputs.shrink_factor = 2
-    >>> task.inputs.output_image = "output_corrected_image.nii.gz"
+    >>> task.input_image = Nifti1.mock()
+    >>> task.shrink_factor = 2
+    >>> task.output_image = "output_corrected_image.nii.gz"
     >>> task.cmdline
     'DenoiseImage -d 3 -i im1.nii -n Rician -o output_corrected_image.nii.gz -s 2'
 
 
     >>> task = DenoiseImage()
-    >>> task.inputs.input_image = Nifti1.mock("im1.nii")
+    >>> task.input_image = Nifti1.mock("im1.nii")
     >>> task.cmdline
     'DenoiseImage -i im1.nii -n Gaussian -o [ im1_noise_corrected.nii, im1_noise.nii ] -s 1'
 

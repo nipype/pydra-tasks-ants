@@ -35,11 +35,11 @@ class CreateTiledMosaic(shell.Task["CreateTiledMosaic.Outputs"]):
     >>> from pydra.tasks.ants.v2.visualization.create_tiled_mosaic import CreateTiledMosaic
 
     >>> task = CreateTiledMosaic()
-    >>> task.inputs.input_image = NiftiGz.mock("T1.nii.gz")
-    >>> task.inputs.rgb_image = File.mock()
-    >>> task.inputs.mask_image = NiftiGz.mock("mask.nii.gz")
-    >>> task.inputs.alpha_value = 0.5
-    >>> task.inputs.pad_or_crop = "[ -15x -50 , -15x -30 ,0]"
+    >>> task.input_image = NiftiGz.mock("T1.nii.gz")
+    >>> task.rgb_image = File.mock()
+    >>> task.mask_image = NiftiGz.mock("mask.nii.gz")
+    >>> task.alpha_value = 0.5
+    >>> task.pad_or_crop = "[ -15x -50 , -15x -30 ,0]"
     >>> task.cmdline
     'CreateTiledMosaic -a 0.50 -d 2 -i T1.nii.gz -x mask.nii.gz -o output.png -p [ -15x -50 , -15x -30 ,0] -r rgb.nii.gz -s [2 ,100 ,160]'
 

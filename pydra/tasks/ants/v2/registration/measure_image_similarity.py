@@ -68,13 +68,13 @@ class MeasureImageSimilarity(shell.Task["MeasureImageSimilarity.Outputs"]):
     >>> from pydra.tasks.ants.v2.registration.measure_image_similarity import MeasureImageSimilarity
 
     >>> task = MeasureImageSimilarity()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.fixed_image = Nifti1.mock("T1.nii")
-    >>> task.inputs.moving_image = File.mock()
-    >>> task.inputs.metric_weight = 1.0
-    >>> task.inputs.sampling_strategy = "Regular"
-    >>> task.inputs.fixed_image_mask = Nifti1.mock("mask.nii")
-    >>> task.inputs.moving_image_mask = File.mock()
+    >>> task.dimension = 3
+    >>> task.fixed_image = Nifti1.mock("T1.nii")
+    >>> task.moving_image = File.mock()
+    >>> task.metric_weight = 1.0
+    >>> task.sampling_strategy = "Regular"
+    >>> task.fixed_image_mask = Nifti1.mock("mask.nii")
+    >>> task.moving_image_mask = File.mock()
     >>> task.cmdline
     'MeasureImageSimilarity --dimensionality 3 --masks ["mask.nii","mask.nii.gz"] --metric MI["T1.nii","resting.nii",1.0,5,Regular,1.0]'
 

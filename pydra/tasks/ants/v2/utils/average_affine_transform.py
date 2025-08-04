@@ -37,8 +37,8 @@ class AverageAffineTransform(shell.Task["AverageAffineTransform.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.average_affine_transform import AverageAffineTransform
 
     >>> task = AverageAffineTransform()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.output_affine_transform = "MYtemplatewarp.mat"
+    >>> task.dimension = 3
+    >>> task.output_affine_transform = "MYtemplatewarp.mat"
     >>> task.cmdline
     'None'
 

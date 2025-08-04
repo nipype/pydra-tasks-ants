@@ -37,8 +37,8 @@ class AffineInitializer(shell.Task["AffineInitializer.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.affine_initializer import AffineInitializer
 
     >>> task = AffineInitializer()
-    >>> task.inputs.fixed_image = Nifti1.mock("fixed1.nii")
-    >>> task.inputs.moving_image = File.mock()
+    >>> task.fixed_image = Nifti1.mock("fixed1.nii")
+    >>> task.moving_image = File.mock()
     >>> task.cmdline
     'antsAffineInitializer 3 fixed1.nii moving1.nii transform.mat 15.000000 0.100000 0 10'
 

@@ -81,14 +81,14 @@ class CompositeTransformUtil(shell.Task["CompositeTransformUtil.Outputs"]):
     >>> from pydra.tasks.ants.v2.registration.composite_transform_util import CompositeTransformUtil
 
     >>> task = CompositeTransformUtil()
-    >>> task.inputs.process = "disassemble"
+    >>> task.process = "disassemble"
     >>> task.cmdline
     'CompositeTransformUtil --disassemble output_Composite.h5 transform'
 
 
     >>> task = CompositeTransformUtil()
-    >>> task.inputs.process = "assemble"
-    >>> task.inputs.in_file = [TextMatrix.mock("AffineTransform.mat"), TextMatrix.mock("DisplacementFieldTransform.nii.gz")]
+    >>> task.process = "assemble"
+    >>> task.in_file = [TextMatrix.mock("AffineTransform.mat"), TextMatrix.mock("DisplacementFieldTransform.nii.gz")]
     >>> task.cmdline
     'CompositeTransformUtil --assemble my.h5 AffineTransform.mat DisplacementFieldTransform.nii.gz '
 

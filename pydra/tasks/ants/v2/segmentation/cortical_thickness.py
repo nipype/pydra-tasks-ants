@@ -237,14 +237,14 @@ class CorticalThickness(shell.Task["CorticalThickness.Outputs"]):
     >>> from pydra.tasks.ants.v2.segmentation.cortical_thickness import CorticalThickness
 
     >>> task = CorticalThickness()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.anatomical_image = File.mock()
-    >>> task.inputs.brain_template = NiftiGz.mock("study_template.nii.gz")
-    >>> task.inputs.brain_probability_mask = File.mock()
-    >>> task.inputs.segmentation_priors = [NiftiGz.mock("BrainSegmentationPrior01.nii.gz"), NiftiGz.mock("BrainSegmentationPrior02.nii.gz"), NiftiGz.mock("BrainSegmentationPrior03.nii.gz"), NiftiGz.mock("BrainSegmentationPrior04.nii.gz")]
-    >>> task.inputs.t1_registration_template = File.mock()
-    >>> task.inputs.extraction_registration_mask = File.mock()
-    >>> task.inputs.cortical_label_image = File.mock()
+    >>> task.dimension = 3
+    >>> task.anatomical_image = File.mock()
+    >>> task.brain_template = NiftiGz.mock("study_template.nii.gz")
+    >>> task.brain_probability_mask = File.mock()
+    >>> task.segmentation_priors = [NiftiGz.mock("BrainSegmentationPrior01.nii.gz"), NiftiGz.mock("BrainSegmentationPrior02.nii.gz"), NiftiGz.mock("BrainSegmentationPrior03.nii.gz"), NiftiGz.mock("BrainSegmentationPrior04.nii.gz")]
+    >>> task.t1_registration_template = File.mock()
+    >>> task.extraction_registration_mask = File.mock()
+    >>> task.cortical_label_image = File.mock()
     >>> task.cmdline
     'None'
 

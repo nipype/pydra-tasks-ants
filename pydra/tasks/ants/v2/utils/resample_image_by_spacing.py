@@ -37,26 +37,26 @@ class ResampleImageBySpacing(shell.Task["ResampleImageBySpacing.Outputs"]):
     >>> from pydra.tasks.ants.v2.utils.resample_image_by_spacing import ResampleImageBySpacing
 
     >>> task = ResampleImageBySpacing()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.out_spacing = (4, 4, 4)
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.out_spacing = (4, 4, 4)
     >>> task.cmdline
     'None'
 
 
     >>> task = ResampleImageBySpacing()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.out_spacing = (4, 4, 4)
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.out_spacing = (4, 4, 4)
     >>> task.cmdline
     'None'
 
 
     >>> task = ResampleImageBySpacing()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_image = Nifti1.mock("structural.nii")
-    >>> task.inputs.out_spacing = (0.4, 0.4, 0.4)
-    >>> task.inputs.addvox = 2
+    >>> task.dimension = 3
+    >>> task.input_image = Nifti1.mock("structural.nii")
+    >>> task.out_spacing = (0.4, 0.4, 0.4)
+    >>> task.addvox = 2
     >>> task.cmdline
     'None'
 

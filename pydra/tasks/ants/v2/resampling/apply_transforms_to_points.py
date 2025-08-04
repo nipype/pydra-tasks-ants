@@ -37,9 +37,9 @@ class ApplyTransformsToPoints(shell.Task["ApplyTransformsToPoints.Outputs"]):
     >>> from pydra.tasks.ants.v2.resampling.apply_transforms_to_points import ApplyTransformsToPoints
 
     >>> task = ApplyTransformsToPoints()
-    >>> task.inputs.dimension = 3
-    >>> task.inputs.input_file = File.mock()
-    >>> task.inputs.transforms = [TextMatrix.mock("trans.mat"), TextMatrix.mock("ants_Warp.nii.gz")]
+    >>> task.dimension = 3
+    >>> task.input_file = File.mock()
+    >>> task.transforms = [TextMatrix.mock("trans.mat"), TextMatrix.mock("ants_Warp.nii.gz")]
     >>> task.cmdline
     'antsApplyTransformsToPoints --dimensionality 3 --input moving.csv --output moving_transformed.csv --transform [ trans.mat, 0 ] --transform [ ants_Warp.nii.gz, 0 ]'
 
