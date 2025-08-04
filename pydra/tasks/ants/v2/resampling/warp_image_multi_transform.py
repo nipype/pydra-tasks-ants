@@ -6,7 +6,7 @@ import logging
 from pydra.tasks.ants.v2.nipype_ports.utils.filemanip import split_filename
 import os
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -63,7 +63,7 @@ def output_image_default(inputs):
 
 
 @shell.define(
-    xor=[["output_image", "out_postfix"], ["reference_image", "tightest_box"]]
+    xor=[["reference_image", "tightest_box"], ["out_postfix", "output_image"]]
 )
 class WarpImageMultiTransform(shell.Task["WarpImageMultiTransform.Outputs"]):
     """
@@ -73,7 +73,7 @@ class WarpImageMultiTransform(shell.Task["WarpImageMultiTransform.Outputs"]):
     >>> from fileformats.generic import File
     >>> from fileformats.medimage import Nifti1, NiftiGz
     >>> from fileformats.text import TextFile
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.resampling.warp_image_multi_transform import WarpImageMultiTransform
 
     >>> task = WarpImageMultiTransform()

@@ -15,8 +15,8 @@ def _format_arg(opt, val, inputs, argstr):
 
     if opt == "transforms":
         return _get_transform_filenames(
-            transforms=inputs["transforms"],
             invert_transform_flags=inputs["invert_transform_flags"],
+            transforms=inputs["transforms"],
         )
 
     return argstr.format(**inputs)
@@ -72,7 +72,7 @@ class ApplyTransformsToPoints(shell.Task["ApplyTransformsToPoints.Outputs"]):
         )
 
 
-def _get_transform_filenames(transforms=None, invert_transform_flags=None):
+def _get_transform_filenames(invert_transform_flags=None, transforms=None):
     retval = []
     for ii in range(len(transforms)):
         if invert_transform_flags is not attrs.NOTHING:

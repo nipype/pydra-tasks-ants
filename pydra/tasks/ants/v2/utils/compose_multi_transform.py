@@ -1,7 +1,7 @@
 from fileformats.generic import File
 import logging
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -16,7 +16,7 @@ class ComposeMultiTransform(shell.Task["ComposeMultiTransform.Outputs"]):
     -------
 
     >>> from fileformats.generic import File
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.utils.compose_multi_transform import ComposeMultiTransform
 
     >>> task = ComposeMultiTransform()

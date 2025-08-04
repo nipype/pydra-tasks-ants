@@ -2,7 +2,7 @@ from fileformats.generic import File
 from fileformats.medimage import Nifti1
 import logging
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 @shell.define(
-    xor=[["mode", "th_low", "th_high"], ["th_low", "mode"], ["th_high", "mode"]]
+    xor=[["mode", "th_high"], ["mode", "th_low"], ["mode", "th_high", "th_low"]]
 )
 class ThresholdImage(shell.Task["ThresholdImage.Outputs"]):
     """
@@ -20,7 +20,7 @@ class ThresholdImage(shell.Task["ThresholdImage.Outputs"]):
 
     >>> from fileformats.generic import File
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.utils.threshold_image import ThresholdImage
 
     >>> task = ThresholdImage()

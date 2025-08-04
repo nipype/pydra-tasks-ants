@@ -2,7 +2,7 @@ import attrs
 from fileformats.medimage import Nifti1
 import logging
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -30,7 +30,7 @@ def output_image_formatter(field, inputs):
     return _format_arg("output_image", field, inputs, argstr="-o {output_image}")
 
 
-@shell.define(xor=[["save_noise", "noise_image"]])
+@shell.define(xor=[["noise_image", "save_noise"]])
 class DenoiseImage(shell.Task["DenoiseImage.Outputs"]):
     """
     Examples
@@ -38,7 +38,7 @@ class DenoiseImage(shell.Task["DenoiseImage.Outputs"]):
 
     >>> import copy
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.segmentation.denoise_image import DenoiseImage
 
     >>> task = DenoiseImage()

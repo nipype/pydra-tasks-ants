@@ -16,15 +16,15 @@ def _format_arg(opt, val, inputs, argstr):
 
     if opt == "output_image":
         return _get_output_warped_filename(
-            input_image=inputs["input_image"],
             output_image=inputs["output_image"],
-            print_out_composite_warp_file=inputs["print_out_composite_warp_file"],
             out_postfix=inputs["out_postfix"],
+            input_image=inputs["input_image"],
+            print_out_composite_warp_file=inputs["print_out_composite_warp_file"],
         )
     elif opt == "transforms":
         return _get_transform_filenames(
-            transforms=inputs["transforms"],
             invert_transform_flags=inputs["invert_transform_flags"],
+            transforms=inputs["transforms"],
         )
     elif opt == "interpolation":
         if inputs["interpolation"] in [
@@ -174,17 +174,17 @@ class ApplyTransforms(shell.Task["ApplyTransforms.Outputs"]):
 
 def _get_output_warped_filename(
     input_image=None,
+    out_postfix=None,
     output_image=None,
     print_out_composite_warp_file=None,
-    out_postfix=None,
 ):
     if print_out_composite_warp_file is not attrs.NOTHING:
         return "--output [ %s, %d ]" % (
             _gen_filename(
                 "output_image",
-                input_image=input_image,
                 output_image=output_image,
                 out_postfix=out_postfix,
+                input_image=input_image,
             ),
             int(print_out_composite_warp_file),
         )
@@ -192,14 +192,14 @@ def _get_output_warped_filename(
         return "--output %s" % (
             _gen_filename(
                 "output_image",
-                input_image=input_image,
                 output_image=output_image,
                 out_postfix=out_postfix,
+                input_image=input_image,
             )
         )
 
 
-def _get_transform_filenames(transforms=None, invert_transform_flags=None):
+def _get_transform_filenames(invert_transform_flags=None, transforms=None):
     retval = []
     invert_flags = invert_transform_flags
     if invert_flags is attrs.NOTHING:

@@ -5,7 +5,7 @@ import logging
 from pydra.tasks.ants.v2.nipype_ports.utils.filemanip import split_filename
 import os
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -133,8 +133,8 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
     outputs["classified_image"] = os.path.abspath(
         _gen_filename(
             "out_classified_image_name",
-            intensity_images=inputs["intensity_images"],
             out_classified_image_name=inputs["out_classified_image_name"],
+            intensity_images=inputs["intensity_images"],
             inputs=inputs["inputs"],
             stdout=inputs["stdout"],
             stderr=inputs["stderr"],
@@ -185,7 +185,7 @@ class Atropos(shell.Task["Atropos.Outputs"]):
 
     >>> from fileformats.generic import File
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.segmentation.atropos import Atropos
 
     >>> task = Atropos()

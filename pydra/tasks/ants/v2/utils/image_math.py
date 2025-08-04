@@ -1,7 +1,7 @@
 from fileformats.medimage import Nifti1
 import logging
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -16,7 +16,7 @@ class ImageMath(shell.Task["ImageMath.Outputs"]):
     -------
 
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.utils.image_math import ImageMath
 
     >>> task = ImageMath()

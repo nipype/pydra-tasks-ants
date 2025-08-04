@@ -4,7 +4,7 @@ import logging
 from pydra.tasks.ants.v2.nipype_ports.utils.filemanip import split_filename
 import os
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -29,14 +29,14 @@ def _format_arg(opt, val, inputs, argstr):
         ct = _gen_filename(
             "cortical_thickness",
             segmentation_image=inputs["segmentation_image"],
-            warped_white_matter=inputs["warped_white_matter"],
             cortical_thickness=inputs["cortical_thickness"],
+            warped_white_matter=inputs["warped_white_matter"],
         )
         wm = _gen_filename(
             "warped_white_matter",
             segmentation_image=inputs["segmentation_image"],
-            warped_white_matter=inputs["warped_white_matter"],
             cortical_thickness=inputs["cortical_thickness"],
+            warped_white_matter=inputs["warped_white_matter"],
         )
         newval = f"[{ct},{wm}]"
         return argstr.format(**{opt: newval})
@@ -96,7 +96,7 @@ class KellyKapowski(shell.Task["KellyKapowski.Outputs"]):
     -------
 
     >>> from fileformats.generic import File
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.segmentation.kelly_kapowski import KellyKapowski
 
     >>> task = KellyKapowski()

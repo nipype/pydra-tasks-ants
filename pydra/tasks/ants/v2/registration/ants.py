@@ -16,29 +16,29 @@ def _format_arg(opt, val, inputs, argstr):
 
     if opt == "moving_image":
         return _image_metric_constructor(
-            radius=inputs["radius"],
-            metric_weight=inputs["metric_weight"],
-            metric=inputs["metric"],
-            fixed_image=inputs["fixed_image"],
             moving_image=inputs["moving_image"],
+            fixed_image=inputs["fixed_image"],
+            radius=inputs["radius"],
+            metric=inputs["metric"],
+            metric_weight=inputs["metric_weight"],
         )
     elif opt == "transformation_model":
         return _transformation_constructor(
+            transformation_model=inputs["transformation_model"],
             gradient_step_length=inputs["gradient_step_length"],
             symmetry_type=inputs["symmetry_type"],
-            delta_time=inputs["delta_time"],
             number_of_time_steps=inputs["number_of_time_steps"],
-            transformation_model=inputs["transformation_model"],
+            delta_time=inputs["delta_time"],
         )
     elif opt == "regularization":
         return _regularization_constructor(
+            regularization=inputs["regularization"],
             regularization_gradient_field_sigma=inputs[
                 "regularization_gradient_field_sigma"
             ],
             regularization_deformation_field_sigma=inputs[
                 "regularization_deformation_field_sigma"
             ],
-            regularization=inputs["regularization"],
         )
     elif opt == "affine_gradient_descent_option":
         return _affine_gradient_descent_option_constructor(
@@ -259,7 +259,7 @@ def _format_xarray(val):
 
 
 def _image_metric_constructor(
-    radius=None, metric_weight=None, metric=None, fixed_image=None, moving_image=None
+    fixed_image=None, metric=None, metric_weight=None, moving_image=None, radius=None
 ):
     retval = []
     intensity_based = ["CC", "MI", "SMI", "PR", "SSD", "MSQ"]
@@ -283,9 +283,9 @@ def _image_metric_constructor(
 
 
 def _regularization_constructor(
-    regularization_gradient_field_sigma=None,
-    regularization_deformation_field_sigma=None,
     regularization=None,
+    regularization_deformation_field_sigma=None,
+    regularization_gradient_field_sigma=None,
 ):
     return "--regularization {}[{},{}]".format(
         regularization,
@@ -295,10 +295,10 @@ def _regularization_constructor(
 
 
 def _transformation_constructor(
-    gradient_step_length=None,
-    symmetry_type=None,
     delta_time=None,
+    gradient_step_length=None,
     number_of_time_steps=None,
+    symmetry_type=None,
     transformation_model=None,
 ):
     model = transformation_model

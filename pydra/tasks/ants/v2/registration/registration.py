@@ -6,7 +6,7 @@ import logging
 from pydra.tasks.ants.v2.nipype_ports.utils.filemanip import ensure_list
 import os
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 from pydra.utils.typing import MultiInputObj
 import typing as ty
@@ -30,30 +30,30 @@ def _format_arg(opt, val, inputs, argstr):
     elif opt == "transforms":
         return _format_registration(
             transforms=inputs["transforms"],
-            sampling_percentage=inputs["sampling_percentage"],
-            sampling_strategy=inputs["sampling_strategy"],
-            moving_image=inputs["moving_image"],
-            smoothing_sigmas=inputs["smoothing_sigmas"],
-            convergence_window_size=inputs["convergence_window_size"],
-            shrink_factors=inputs["shrink_factors"],
-            convergence_threshold=inputs["convergence_threshold"],
-            moving_image_masks=inputs["moving_image_masks"],
-            metric=inputs["metric"],
             fixed_image=inputs["fixed_image"],
-            number_of_iterations=inputs["number_of_iterations"],
-            transform_parameters=inputs["transform_parameters"],
-            restrict_deformation=inputs["restrict_deformation"],
-            fixed_image_masks=inputs["fixed_image_masks"],
-            use_estimate_learning_rate_once=inputs["use_estimate_learning_rate_once"],
-            use_histogram_matching=inputs["use_histogram_matching"],
-            metric_weight=inputs["metric_weight"],
+            sampling_percentage=inputs["sampling_percentage"],
+            shrink_factors=inputs["shrink_factors"],
+            metric=inputs["metric"],
+            convergence_window_size=inputs["convergence_window_size"],
             sigma_units=inputs["sigma_units"],
             radius_or_number_of_bins=inputs["radius_or_number_of_bins"],
+            metric_weight=inputs["metric_weight"],
+            moving_image=inputs["moving_image"],
+            moving_image_masks=inputs["moving_image_masks"],
+            use_histogram_matching=inputs["use_histogram_matching"],
+            sampling_strategy=inputs["sampling_strategy"],
+            use_estimate_learning_rate_once=inputs["use_estimate_learning_rate_once"],
+            fixed_image_masks=inputs["fixed_image_masks"],
+            convergence_threshold=inputs["convergence_threshold"],
+            number_of_iterations=inputs["number_of_iterations"],
+            transform_parameters=inputs["transform_parameters"],
+            smoothing_sigmas=inputs["smoothing_sigmas"],
+            restrict_deformation=inputs["restrict_deformation"],
         )
     elif opt == "initial_moving_transform":
         return _get_initial_transform_filenames(
-            invert_initial_moving_transform=inputs["invert_initial_moving_transform"],
             initial_moving_transform=inputs["initial_moving_transform"],
+            invert_initial_moving_transform=inputs["invert_initial_moving_transform"],
         )
     elif opt == "initial_moving_transform_com":
         do_center_of_mass_init = (
@@ -82,15 +82,15 @@ def _format_arg(opt, val, inputs, argstr):
     elif opt == "output_transform_prefix":
         out_filename = _get_outputfilenames(
             inverse=False,
+            output_transform_prefix=inputs["output_transform_prefix"],
             output_warped_image=inputs["output_warped_image"],
             output_inverse_warped_image=inputs["output_inverse_warped_image"],
-            output_transform_prefix=inputs["output_transform_prefix"],
         )
         inv_out_filename = _get_outputfilenames(
             inverse=True,
+            output_transform_prefix=inputs["output_transform_prefix"],
             output_warped_image=inputs["output_warped_image"],
             output_inverse_warped_image=inputs["output_inverse_warped_image"],
-            output_transform_prefix=inputs["output_transform_prefix"],
         )
         if out_filename and inv_out_filename:
             return "--output [ {}, {}, {} ]".format(
@@ -108,8 +108,8 @@ def _format_arg(opt, val, inputs, argstr):
     elif opt == "winsorize_upper_quantile" or opt == "winsorize_lower_quantile":
         if not parsed_inputs["_quantilesDone"]:
             return _format_winsorize_image_intensities(
-                winsorize_upper_quantile=inputs["winsorize_upper_quantile"],
                 winsorize_lower_quantile=inputs["winsorize_lower_quantile"],
+                winsorize_upper_quantile=inputs["winsorize_upper_quantile"],
             )
         else:
             parsed_inputs["_quantilesDone"] = False
@@ -311,9 +311,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
 
     out_filename = _get_outputfilenames(
         inverse=False,
+        output_transform_prefix=inputs["output_transform_prefix"],
         output_warped_image=inputs["output_warped_image"],
         output_inverse_warped_image=inputs["output_inverse_warped_image"],
-        output_transform_prefix=inputs["output_transform_prefix"],
         inputs=inputs["inputs"],
         stdout=inputs["stdout"],
         stderr=inputs["stderr"],
@@ -321,9 +321,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
     )
     inv_out_filename = _get_outputfilenames(
         inverse=True,
+        output_transform_prefix=inputs["output_transform_prefix"],
         output_warped_image=inputs["output_warped_image"],
         output_inverse_warped_image=inputs["output_inverse_warped_image"],
-        output_transform_prefix=inputs["output_transform_prefix"],
         inputs=inputs["inputs"],
         stdout=inputs["stdout"],
         stderr=inputs["stderr"],
@@ -439,10 +439,10 @@ def elapsed_time_callable(output_dir, inputs, stdout, stderr):
 
 @shell.define(
     xor=[
-        ["initial_moving_transform", "initial_moving_transform_com"],
-        ["invert_initial_moving_transform", "initial_moving_transform_com"],
+        ["initial_moving_transform_com", "invert_initial_moving_transform"],
+        ["moving_image_mask", "moving_image_masks"],
         ["fixed_image_mask", "fixed_image_masks"],
-        ["moving_image_masks", "moving_image_mask"],
+        ["initial_moving_transform", "initial_moving_transform_com"],
     ]
 )
 class Registration(shell.Task["Registration.Outputs"]):
@@ -454,7 +454,7 @@ class Registration(shell.Task["Registration.Outputs"]):
     >>> from fileformats.datascience import TextMatrix
     >>> from fileformats.generic import File
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> import pprint
     >>> from pydra.tasks.ants.v2.registration.registration import Registration
     >>> from pydra.utils.typing import MultiInputObj
@@ -810,9 +810,9 @@ class Registration(shell.Task["Registration.Outputs"]):
 
 def _format_convergence(
     ii,
+    convergence_threshold=None,
     convergence_window_size=None,
     number_of_iterations=None,
-    convergence_threshold=None,
 ):
     convergence_iter = _format_xarray(number_of_iterations[ii])
     if len(convergence_threshold) > ii:
@@ -828,13 +828,13 @@ def _format_convergence(
 
 def _format_metric(
     index,
-    sampling_percentage=None,
-    metric_weight=None,
-    sampling_strategy=None,
-    metric=None,
     fixed_image=None,
+    metric=None,
+    metric_weight=None,
     moving_image=None,
     radius_or_number_of_bins=None,
+    sampling_percentage=None,
+    sampling_strategy=None,
 ):
     """
     Format the antsRegistration -m metric argument(s).
@@ -915,26 +915,26 @@ def _format_metric_argument(**kwargs):
 
 
 def _format_registration(
-    transforms=None,
+    convergence_threshold=None,
+    convergence_window_size=None,
+    fixed_image=None,
+    fixed_image_masks=None,
+    metric=None,
+    metric_weight=None,
+    moving_image=None,
+    moving_image_masks=None,
+    number_of_iterations=None,
+    radius_or_number_of_bins=None,
+    restrict_deformation=None,
     sampling_percentage=None,
     sampling_strategy=None,
-    moving_image=None,
-    smoothing_sigmas=None,
-    convergence_window_size=None,
     shrink_factors=None,
-    convergence_threshold=None,
-    moving_image_masks=None,
-    metric=None,
-    fixed_image=None,
-    number_of_iterations=None,
+    sigma_units=None,
+    smoothing_sigmas=None,
     transform_parameters=None,
-    restrict_deformation=None,
-    fixed_image_masks=None,
+    transforms=None,
     use_estimate_learning_rate_once=None,
     use_histogram_matching=None,
-    metric_weight=None,
-    sigma_units=None,
-    radius_or_number_of_bins=None,
 ):
     retval = []
     for ii in range(len(transforms)):
@@ -950,22 +950,22 @@ def _format_registration(
             "--metric %s" % metric
             for metric in _format_metric(
                 ii,
-                sampling_percentage=sampling_percentage,
-                metric_weight=metric_weight,
-                sampling_strategy=sampling_strategy,
-                metric=metric,
-                fixed_image=fixed_image,
                 moving_image=moving_image,
+                fixed_image=fixed_image,
+                sampling_percentage=sampling_percentage,
+                metric=metric,
+                sampling_strategy=sampling_strategy,
                 radius_or_number_of_bins=radius_or_number_of_bins,
+                metric_weight=metric_weight,
             )
         )
         retval.append(
             "--convergence %s"
             % _format_convergence(
                 ii,
+                convergence_threshold=convergence_threshold,
                 convergence_window_size=convergence_window_size,
                 number_of_iterations=number_of_iterations,
-                convergence_threshold=convergence_threshold,
             )
         )
         if sigma_units is not attrs.NOTHING:
@@ -1016,13 +1016,13 @@ def _format_registration(
     return " ".join(retval)
 
 
-def _format_transform(index, transforms=None, transform_parameters=None):
+def _format_transform(index, transform_parameters=None, transforms=None):
     parameters = ", ".join([str(element) for element in transform_parameters[index]])
     return f"{transforms[index]}[ {parameters} ]"
 
 
 def _format_winsorize_image_intensities(
-    winsorize_upper_quantile=None, winsorize_lower_quantile=None
+    winsorize_lower_quantile=None, winsorize_upper_quantile=None
 ):
     _quantilesDone = attrs.NOTHING
     self_dict = {}
@@ -1049,7 +1049,7 @@ def _format_xarray(val):
 
 
 def _get_initial_transform_filenames(
-    invert_initial_moving_transform=None, initial_moving_transform=None
+    initial_moving_transform=None, invert_initial_moving_transform=None
 ):
     n_transforms = len(initial_moving_transform)
 
@@ -1071,13 +1071,13 @@ def _get_initial_transform_filenames(
 
 def _get_outputfilenames(
     inverse=False,
-    output_warped_image=None,
     output_inverse_warped_image=None,
     output_transform_prefix=None,
+    output_warped_image=None,
     inputs=None,
-    stdout=None,
-    stderr=None,
     output_dir=None,
+    stderr=None,
+    stdout=None,
 ):
     output_filename = None
     if not inverse:
@@ -1102,9 +1102,9 @@ def _output_filenames(
     transform,
     inverse=False,
     inputs=None,
-    stdout=None,
-    stderr=None,
     output_dir=None,
+    stderr=None,
+    stdout=None,
 ):
     low_dimensional_transform_map = attrs.NOTHING
     self_dict = {}

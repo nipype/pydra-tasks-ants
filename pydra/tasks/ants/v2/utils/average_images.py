@@ -3,7 +3,7 @@ from fileformats.generic import File
 import logging
 import os
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -33,7 +33,7 @@ class AverageImages(shell.Task["AverageImages.Outputs"]):
     -------
 
     >>> from fileformats.generic import File
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.utils.average_images import AverageImages
 
     >>> task = AverageImages()

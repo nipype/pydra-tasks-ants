@@ -1,7 +1,7 @@
 from fileformats.medimage import Nifti1
 import logging
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -33,7 +33,7 @@ class ResampleImageBySpacing(shell.Task["ResampleImageBySpacing.Outputs"]):
     -------
 
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.utils.resample_image_by_spacing import ResampleImageBySpacing
 
     >>> task = ResampleImageBySpacing()

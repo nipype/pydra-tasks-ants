@@ -5,7 +5,7 @@ import logging
 from pydra.tasks.ants.v2.nipype_ports.utils.filemanip import fname_presuffix
 import os
 from pathlib import Path
-from pathlib._local import Path
+from pathlib import Path
 from pydra.compose import shell
 import typing as ty
 
@@ -97,7 +97,7 @@ def bias_image_callable(output_dir, inputs, stdout, stderr):
     return outputs.get("bias_image")
 
 
-@shell.define(xor=[["save_bias", "bias_image"]])
+@shell.define(xor=[["bias_image", "save_bias"]])
 class N4BiasFieldCorrection(shell.Task["N4BiasFieldCorrection.Outputs"]):
     """
     Examples
@@ -106,7 +106,7 @@ class N4BiasFieldCorrection(shell.Task["N4BiasFieldCorrection.Outputs"]):
     >>> import copy
     >>> from fileformats.generic import File
     >>> from fileformats.medimage import Nifti1
-    >>> from pathlib._local import Path
+    >>> from pathlib import Path
     >>> from pydra.tasks.ants.v2.segmentation.n4_bias_field_correction import N4BiasFieldCorrection
 
     >>> task = N4BiasFieldCorrection()
