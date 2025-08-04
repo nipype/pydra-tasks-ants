@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Automatically converting Nipype tasks to Pydra tasks..."
-
 conv_dir=$(dirname $0)
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-echo "Stashing current changes to '$CURRENT_BRANCH'..."
-git stash -m "pre-auto-conv" || true
+if ! git diff-index --quiet HEAD --; then
+    echo "Current branch '$CURRENT_BRANCH' has uncommitted changes. Please commit or stash them before proceeding."
+    exit 1
+fi
 
-echo "Switching to 'auto-conv' branch..."
+echo "Automatically converting Nipype tasks to Pydra tasks..."
+
+echo "Apply latest changes to nipype-auto-conv specs to auto-conv branch..."
+git fetch origin auto-conv
 git checkout auto-conv
+git reset origin/auto-conv
+git add $conv_dir/specs
+git commit -m "Update auto-conv specs with latest changes from '$CURRENT_BRANCH'"
+git reset --hard HEAD
+
 
 echo "Running nipype2pydra conversion..."
 nipype2pydra convert $conv_dir/specs $conv_dir/..
@@ -23,8 +31,5 @@ git commit -m "Auto-converted Nipype tasks to Pydra tasks"
 echo "Rebasing '$CURRENT_BRANCH' to apply changes..."
 git checkout $CURRENT_BRANCH
 git rebase auto-conv
-
-echo "Popping stashed changes..."
-git stash pop || echo "No stashed changes to pop."
 
 echo "Successfully converted Nipype tasks to Pydra tasks and rebased '$CURRENT_BRANCH' on top of auto-conv changes."

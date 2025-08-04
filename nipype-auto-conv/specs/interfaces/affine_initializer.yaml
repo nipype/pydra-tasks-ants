@@ -32,7 +32,7 @@ inputs:
   # passed to the field in the automatically generated unittests.
     fixed_image: medimage/nifti1
     # type=file|default=<undefined>: reference image
-    moving_image: generic/file
+    moving_image: generic/nifti1
     # type=file|default=<undefined>: moving image
   callable_defaults:
   # dict[str, str] - names of methods/callable classes defined in the adjacent `*_callables.py`
