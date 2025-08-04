@@ -133,12 +133,12 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
     outputs["classified_image"] = os.path.abspath(
         _gen_filename(
             "out_classified_image_name",
-            out_classified_image_name=inputs["out_classified_image_name"],
             intensity_images=inputs["intensity_images"],
+            out_classified_image_name=inputs["out_classified_image_name"],
             inputs=inputs["inputs"],
-            stdout=inputs["stdout"],
-            stderr=inputs["stderr"],
             output_dir=inputs["output_dir"],
+            stderr=inputs["stderr"],
+            stdout=inputs["stdout"],
         )
     )
     if (inputs["save_posteriors"] is not attrs.NOTHING) and inputs["save_posteriors"]:

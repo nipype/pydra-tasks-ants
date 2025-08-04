@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 @shell.define(
-    xor=[["mode", "th_high"], ["mode", "th_low"], ["mode", "th_high", "th_low"]]
+    xor=[["mode", "th_low"], ["mode", "th_high"], ["mode", "th_high", "th_low"]]
 )
 class ThresholdImage(shell.Task["ThresholdImage.Outputs"]):
     """

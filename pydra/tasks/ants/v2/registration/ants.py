@@ -16,28 +16,28 @@ def _format_arg(opt, val, inputs, argstr):
 
     if opt == "moving_image":
         return _image_metric_constructor(
-            moving_image=inputs["moving_image"],
             fixed_image=inputs["fixed_image"],
-            radius=inputs["radius"],
             metric=inputs["metric"],
             metric_weight=inputs["metric_weight"],
+            moving_image=inputs["moving_image"],
+            radius=inputs["radius"],
         )
     elif opt == "transformation_model":
         return _transformation_constructor(
-            transformation_model=inputs["transformation_model"],
-            gradient_step_length=inputs["gradient_step_length"],
-            symmetry_type=inputs["symmetry_type"],
-            number_of_time_steps=inputs["number_of_time_steps"],
             delta_time=inputs["delta_time"],
+            gradient_step_length=inputs["gradient_step_length"],
+            number_of_time_steps=inputs["number_of_time_steps"],
+            symmetry_type=inputs["symmetry_type"],
+            transformation_model=inputs["transformation_model"],
         )
     elif opt == "regularization":
         return _regularization_constructor(
             regularization=inputs["regularization"],
-            regularization_gradient_field_sigma=inputs[
-                "regularization_gradient_field_sigma"
-            ],
             regularization_deformation_field_sigma=inputs[
                 "regularization_deformation_field_sigma"
+            ],
+            regularization_gradient_field_sigma=inputs[
+                "regularization_gradient_field_sigma"
             ],
         )
     elif opt == "affine_gradient_descent_option":

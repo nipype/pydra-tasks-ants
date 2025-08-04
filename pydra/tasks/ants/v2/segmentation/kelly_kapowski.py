@@ -28,14 +28,14 @@ def _format_arg(opt, val, inputs, argstr):
     if opt == "cortical_thickness":
         ct = _gen_filename(
             "cortical_thickness",
-            segmentation_image=inputs["segmentation_image"],
             cortical_thickness=inputs["cortical_thickness"],
+            segmentation_image=inputs["segmentation_image"],
             warped_white_matter=inputs["warped_white_matter"],
         )
         wm = _gen_filename(
             "warped_white_matter",
-            segmentation_image=inputs["segmentation_image"],
             cortical_thickness=inputs["cortical_thickness"],
+            segmentation_image=inputs["segmentation_image"],
             warped_white_matter=inputs["warped_white_matter"],
         )
         newval = f"[{ct},{wm}]"

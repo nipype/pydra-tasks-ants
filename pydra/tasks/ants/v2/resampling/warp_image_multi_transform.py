@@ -63,7 +63,7 @@ def output_image_default(inputs):
 
 
 @shell.define(
-    xor=[["reference_image", "tightest_box"], ["out_postfix", "output_image"]]
+    xor=[["out_postfix", "output_image"], ["reference_image", "tightest_box"]]
 )
 class WarpImageMultiTransform(shell.Task["WarpImageMultiTransform.Outputs"]):
     """

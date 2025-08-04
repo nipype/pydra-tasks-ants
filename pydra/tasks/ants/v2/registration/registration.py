@@ -29,26 +29,26 @@ def _format_arg(opt, val, inputs, argstr):
             return "--masks %s" % inputs["fixed_image_mask"]
     elif opt == "transforms":
         return _format_registration(
-            transforms=inputs["transforms"],
-            fixed_image=inputs["fixed_image"],
-            sampling_percentage=inputs["sampling_percentage"],
-            shrink_factors=inputs["shrink_factors"],
-            metric=inputs["metric"],
+            convergence_threshold=inputs["convergence_threshold"],
             convergence_window_size=inputs["convergence_window_size"],
-            sigma_units=inputs["sigma_units"],
-            radius_or_number_of_bins=inputs["radius_or_number_of_bins"],
+            fixed_image=inputs["fixed_image"],
+            fixed_image_masks=inputs["fixed_image_masks"],
+            metric=inputs["metric"],
             metric_weight=inputs["metric_weight"],
             moving_image=inputs["moving_image"],
             moving_image_masks=inputs["moving_image_masks"],
-            use_histogram_matching=inputs["use_histogram_matching"],
-            sampling_strategy=inputs["sampling_strategy"],
-            use_estimate_learning_rate_once=inputs["use_estimate_learning_rate_once"],
-            fixed_image_masks=inputs["fixed_image_masks"],
-            convergence_threshold=inputs["convergence_threshold"],
             number_of_iterations=inputs["number_of_iterations"],
-            transform_parameters=inputs["transform_parameters"],
-            smoothing_sigmas=inputs["smoothing_sigmas"],
+            radius_or_number_of_bins=inputs["radius_or_number_of_bins"],
             restrict_deformation=inputs["restrict_deformation"],
+            sampling_percentage=inputs["sampling_percentage"],
+            sampling_strategy=inputs["sampling_strategy"],
+            shrink_factors=inputs["shrink_factors"],
+            sigma_units=inputs["sigma_units"],
+            smoothing_sigmas=inputs["smoothing_sigmas"],
+            transform_parameters=inputs["transform_parameters"],
+            transforms=inputs["transforms"],
+            use_estimate_learning_rate_once=inputs["use_estimate_learning_rate_once"],
+            use_histogram_matching=inputs["use_histogram_matching"],
         )
     elif opt == "initial_moving_transform":
         return _get_initial_transform_filenames(
@@ -82,15 +82,15 @@ def _format_arg(opt, val, inputs, argstr):
     elif opt == "output_transform_prefix":
         out_filename = _get_outputfilenames(
             inverse=False,
+            output_inverse_warped_image=inputs["output_inverse_warped_image"],
             output_transform_prefix=inputs["output_transform_prefix"],
             output_warped_image=inputs["output_warped_image"],
-            output_inverse_warped_image=inputs["output_inverse_warped_image"],
         )
         inv_out_filename = _get_outputfilenames(
             inverse=True,
+            output_inverse_warped_image=inputs["output_inverse_warped_image"],
             output_transform_prefix=inputs["output_transform_prefix"],
             output_warped_image=inputs["output_warped_image"],
-            output_inverse_warped_image=inputs["output_inverse_warped_image"],
         )
         if out_filename and inv_out_filename:
             return "--output [ {}, {}, {} ]".format(
@@ -204,9 +204,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
                         transform_count,
                         "Initial",
                         inputs=inputs["inputs"],
-                        stdout=inputs["stdout"],
-                        stderr=inputs["stderr"],
                         output_dir=inputs["output_dir"],
+                        stderr=inputs["stderr"],
+                        stdout=inputs["stdout"],
                     )
                 )
                 reverse_filename, reverse_inversemode, low_dimensional_transform_map = (
@@ -216,9 +216,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
                         "Initial",
                         True,
                         inputs=inputs["inputs"],
-                        stdout=inputs["stdout"],
-                        stderr=inputs["stderr"],
                         output_dir=inputs["output_dir"],
+                        stderr=inputs["stderr"],
+                        stdout=inputs["stdout"],
                     )
                 )
                 outputs["forward_transforms"].append(os.path.abspath(forward_filename))
@@ -236,9 +236,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
                         transform_count,
                         inputs["transforms"][count],
                         inputs=inputs["inputs"],
-                        stdout=inputs["stdout"],
-                        stderr=inputs["stderr"],
                         output_dir=inputs["output_dir"],
+                        stderr=inputs["stderr"],
+                        stdout=inputs["stdout"],
                     )
                 )
                 reverse_filename, reverse_inversemode, low_dimensional_transform_map = (
@@ -248,9 +248,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
                         inputs["transforms"][count],
                         True,
                         inputs=inputs["inputs"],
-                        stdout=inputs["stdout"],
-                        stderr=inputs["stderr"],
                         output_dir=inputs["output_dir"],
+                        stderr=inputs["stderr"],
+                        stdout=inputs["stdout"],
                     )
                 )
                 outputs["forward_transforms"].append(os.path.abspath(forward_filename))
@@ -286,9 +286,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
                         transform,
                         inverse=False,
                         inputs=inputs["inputs"],
-                        stdout=inputs["stdout"],
-                        stderr=inputs["stderr"],
                         output_dir=inputs["output_dir"],
+                        stderr=inputs["stderr"],
+                        stdout=inputs["stdout"],
                     )
                 )
                 reverse_filename, reverse_inversemode, low_dimensional_transform_map = (
@@ -298,9 +298,9 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
                         transform,
                         inverse=True,
                         inputs=inputs["inputs"],
-                        stdout=inputs["stdout"],
-                        stderr=inputs["stderr"],
                         output_dir=inputs["output_dir"],
+                        stderr=inputs["stderr"],
+                        stdout=inputs["stdout"],
                     )
                 )
                 outputs["forward_transforms"].append(os.path.abspath(forward_filename))
@@ -311,23 +311,23 @@ def _list_outputs(inputs=None, stdout=None, stderr=None, output_dir=None):
 
     out_filename = _get_outputfilenames(
         inverse=False,
+        output_inverse_warped_image=inputs["output_inverse_warped_image"],
         output_transform_prefix=inputs["output_transform_prefix"],
         output_warped_image=inputs["output_warped_image"],
-        output_inverse_warped_image=inputs["output_inverse_warped_image"],
         inputs=inputs["inputs"],
-        stdout=inputs["stdout"],
-        stderr=inputs["stderr"],
         output_dir=inputs["output_dir"],
+        stderr=inputs["stderr"],
+        stdout=inputs["stdout"],
     )
     inv_out_filename = _get_outputfilenames(
         inverse=True,
+        output_inverse_warped_image=inputs["output_inverse_warped_image"],
         output_transform_prefix=inputs["output_transform_prefix"],
         output_warped_image=inputs["output_warped_image"],
-        output_inverse_warped_image=inputs["output_inverse_warped_image"],
         inputs=inputs["inputs"],
-        stdout=inputs["stdout"],
-        stderr=inputs["stderr"],
         output_dir=inputs["output_dir"],
+        stderr=inputs["stderr"],
+        stdout=inputs["stdout"],
     )
     if out_filename:
         outputs["warped_image"] = os.path.abspath(out_filename)
@@ -439,10 +439,10 @@ def elapsed_time_callable(output_dir, inputs, stdout, stderr):
 
 @shell.define(
     xor=[
-        ["initial_moving_transform_com", "invert_initial_moving_transform"],
-        ["moving_image_mask", "moving_image_masks"],
-        ["fixed_image_mask", "fixed_image_masks"],
         ["initial_moving_transform", "initial_moving_transform_com"],
+        ["moving_image_mask", "moving_image_masks"],
+        ["initial_moving_transform_com", "invert_initial_moving_transform"],
+        ["fixed_image_mask", "fixed_image_masks"],
     ]
 )
 class Registration(shell.Task["Registration.Outputs"]):
@@ -942,7 +942,7 @@ def _format_registration(
             "--transform %s"
             % (
                 _format_transform(
-                    ii, transforms=transforms, transform_parameters=transform_parameters
+                    ii, transform_parameters=transform_parameters, transforms=transforms
                 )
             )
         )
@@ -950,13 +950,13 @@ def _format_registration(
             "--metric %s" % metric
             for metric in _format_metric(
                 ii,
-                moving_image=moving_image,
                 fixed_image=fixed_image,
-                sampling_percentage=sampling_percentage,
                 metric=metric,
-                sampling_strategy=sampling_strategy,
-                radius_or_number_of_bins=radius_or_number_of_bins,
                 metric_weight=metric_weight,
+                moving_image=moving_image,
+                radius_or_number_of_bins=radius_or_number_of_bins,
+                sampling_percentage=sampling_percentage,
+                sampling_strategy=sampling_strategy,
             )
         )
         retval.append(

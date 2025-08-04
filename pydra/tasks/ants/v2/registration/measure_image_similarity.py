@@ -15,18 +15,18 @@ def _format_arg(opt, val, inputs, argstr):
 
     if opt == "metric":
         return _metric_constructor(
-            moving_image=inputs["moving_image"],
             fixed_image=inputs["fixed_image"],
-            sampling_percentage=inputs["sampling_percentage"],
             metric=inputs["metric"],
-            sampling_strategy=inputs["sampling_strategy"],
-            radius_or_number_of_bins=inputs["radius_or_number_of_bins"],
             metric_weight=inputs["metric_weight"],
+            moving_image=inputs["moving_image"],
+            radius_or_number_of_bins=inputs["radius_or_number_of_bins"],
+            sampling_percentage=inputs["sampling_percentage"],
+            sampling_strategy=inputs["sampling_strategy"],
         )
     elif opt == "fixed_image_mask":
         return _mask_constructor(
-            moving_image_mask=inputs["moving_image_mask"],
             fixed_image_mask=inputs["fixed_image_mask"],
+            moving_image_mask=inputs["moving_image_mask"],
         )
 
     return argstr.format(**inputs)

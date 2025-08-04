@@ -16,9 +16,9 @@ def _format_arg(opt, val, inputs, argstr):
 
     if opt == "output_image":
         return _get_output_warped_filename(
-            output_image=inputs["output_image"],
-            out_postfix=inputs["out_postfix"],
             input_image=inputs["input_image"],
+            out_postfix=inputs["out_postfix"],
+            output_image=inputs["output_image"],
             print_out_composite_warp_file=inputs["print_out_composite_warp_file"],
         )
     elif opt == "transforms":
@@ -182,9 +182,9 @@ def _get_output_warped_filename(
         return "--output [ %s, %d ]" % (
             _gen_filename(
                 "output_image",
-                output_image=output_image,
-                out_postfix=out_postfix,
                 input_image=input_image,
+                out_postfix=out_postfix,
+                output_image=output_image,
             ),
             int(print_out_composite_warp_file),
         )
@@ -192,9 +192,9 @@ def _get_output_warped_filename(
         return "--output %s" % (
             _gen_filename(
                 "output_image",
-                output_image=output_image,
-                out_postfix=out_postfix,
                 input_image=input_image,
+                out_postfix=out_postfix,
+                output_image=output_image,
             )
         )
 
