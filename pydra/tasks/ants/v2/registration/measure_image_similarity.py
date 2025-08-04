@@ -114,7 +114,7 @@ class MeasureImageSimilarity(shell.Task["MeasureImageSimilarity.Outputs"]):
         help="mask used to limit metric sampling region of the fixed image",
         formatter="fixed_image_mask_formatter",
     )
-    moving_image_mask: File = shell.arg(
+    moving_image_mask: File | None = shell.arg(
         help="mask used to limit metric sampling region of the moving image",
         requires=["fixed_image_mask"],
     )

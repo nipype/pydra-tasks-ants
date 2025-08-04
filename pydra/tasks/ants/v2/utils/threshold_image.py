@@ -11,7 +11,11 @@ logger = logging.getLogger(__name__)
 
 
 @shell.define(
-    xor=[["mode", "th_high"], ["mode", "th_high", "th_low"], ["mode", "th_low"]]
+    xor=[
+        ["mode", "th_high", "num_thresholds"],
+        ["mode", "th_high", "th_low", "num_thresholds"],
+        ["mode", "th_low", "num_thresholds"],
+    ]
 )
 class ThresholdImage(shell.Task["ThresholdImage.Outputs"]):
     """
@@ -60,7 +64,7 @@ class ThresholdImage(shell.Task["ThresholdImage.Outputs"]):
     num_thresholds: int = shell.arg(
         help="number of thresholds", argstr="{num_thresholds}", position=5
     )
-    input_mask: File = shell.arg(
+    input_mask: File | None = shell.arg(
         help="input mask for Otsu, Kmeans",
         argstr="{input_mask}",
         requires=["num_thresholds"],
