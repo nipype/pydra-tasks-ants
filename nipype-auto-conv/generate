@@ -17,22 +17,16 @@ git fetch origin auto-conv || echo "Wasn't able to fetch origin/auto-conv, pleas
 git checkout -b ${CURRENT_BRANCH}-auto-conv
 git reset origin/auto-conv
 git add $conv_dir/specs
-git commit -m "Update auto-conv specs with latest changes from '$CURRENT_BRANCH'"
+git commit -m "Update auto-conv specs with latest changes from '$CURRENT_BRANCH'" || echo true
 # Ignore any other changes outside the auto-conv directory
 git reset --hard HEAD
-
 
 echo "Running nipype2pydra conversion..."
 nipype2pydra convert $conv_dir/specs $conv_dir/..
 
-
 echo "Committing converted tasks to ${CURRENT_BRANCH}-auto-conv..."
 git add pydra/tasks/ants
-git commit -m "Auto-converted Nipype tasks to Pydra tasks"
-
-echo "Updating auto-conv branch with latest changes..."
-git checkout auto-conv
-git merge --ff-only ${CURRENT_BRANCH}-auto-conv
+git commit -m "Auto-converted Nipype tasks to Pydra tasks" || echo true
 
 echo "Rebasing '$CURRENT_BRANCH' to apply changes..."
 git checkout $CURRENT_BRANCH
