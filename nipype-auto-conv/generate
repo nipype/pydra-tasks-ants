@@ -36,6 +36,6 @@ git merge --ff-only ${CURRENT_BRANCH}-auto-conv
 
 echo "Rebasing '$CURRENT_BRANCH' to apply changes..."
 git checkout $CURRENT_BRANCH
-git rebase auto-conv
+git rebase ${CURRENT_BRANCH}-auto-conv
 
-echo "Successfully converted Nipype tasks to Pydra tasks and rebased '$CURRENT_BRANCH' on top of auto-conv changes."
+echo "Successfully converted Nipype tasks to Pydra tasks and rebased '$CURRENT_BRANCH' on top of the 'auto-conv' branch."
