@@ -28,32 +28,21 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Scientific/Engineering",
   "Topic :: Software Development :: Libraries",
 ]
 dynamic = ["version"]
 
 [project.urls]
-Documentation = "https://github.com/nipype/pydra-ants#readme"
-Issues = "https://github.com/nipype/pydra-ants/issues"
-Source = "https://github.com/nipype/pydra-ants"
+Documentation = "https://github.com/nipype/pydra-tasks-ants#readme"
+Issues = "https://github.com/nipype/pydra-tasks-ants/issues"
+Source = "https://github.com/nipype/pydra-tasks-ants"
 
 [project.optional-dependencies]
 dev = ["black", "pre-commit"]
-doc = [
-  "packaging",
-  "sphinx >=2.1.2",
-  "sphinx_rtd_theme",
-  "sphinxcontrib-apidoc ~=0.3.0",
-  "sphinxcontrib-napoleon",
-  "sphinxcontrib-versioning",
-  "pydata-sphinx-theme >=0.13",
-]
 test = [
   "nipype2pydra >=0.5.0",
   "pytest >= 7.4",
@@ -79,11 +68,8 @@ source = "vcs"
 [tool.hatch.build.hooks.vcs]
 version-file = "pydra/tasks/ants/_version.py"
 
-# [tool.hatch.build.targets.wheel]
-# include-only = ["pydra/tasks/ants"]
-
 [tool.black]
-target-version = ["py38"]
+target-version = ["py311"]
 exclude = "_version.py"
 
 [tool.codespell]
@@ -106,7 +92,6 @@ python = ["3.11", "3.12", "3.13"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-# addopts = ["--doctest-modules", "--doctest-continue-on-failure"]
 testpaths = ["pydra/tasks/ants"]
 log_cli_level = "INFO"
 xfail_strict = true
@@ -116,8 +101,7 @@ addopts = [
   "--strict-config",
   "--strict-markers",
   # "--doctest-modules",
-  # "--import-mode=importlib",
-  # Config pytest-cov
+  # "--doctest-continue-on-failure",
   "--cov=pydra.tasks.ants",
   "--cov-report=xml",
   "--cov-config=pyproject.toml",
