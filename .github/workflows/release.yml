@@ -17,6 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Prepare repository
         # Fetch full git history and tags
         run: git fetch --unshallow --tags
@@ -36,6 +41,9 @@ jobs:
           auto_download_url="$(curl -fsSL https://api.github.com/repos/intuit/auto/releases/latest | jq -r '.assets[] | select(.name == "auto-linux.gz") | .browser_download_url')"
           wget -O- "$auto_download_url" | gunzip > ~/auto
           chmod a+x ~/auto
+
+      - name: Create auto labels if they don't exist
+        run: ~/auto create-labels
 
       - name: Create release
         run: |
