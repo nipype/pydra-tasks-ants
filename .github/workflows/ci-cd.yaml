@@ -82,6 +82,7 @@ jobs:
           tcl8.6-dev:amd64 \
           libtcl8.6:amd64 \
           lmod
+        module
 
     - name: Install Neurocontainer
       run: |
