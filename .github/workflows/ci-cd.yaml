@@ -77,7 +77,7 @@ jobs:
         pushd neurocommand
         pip3 install -r neurodesk/requirements.txt --user
         bash build.sh --cli
-        echo APPTAINER_BINDPATH=pwd -P >> $GITHUB_ENV
+        echo "APPTAINER_BINDPATH=`pwd -P`" >> $GITHUB_ENV
         popd
 
     - name: Download Package Container
