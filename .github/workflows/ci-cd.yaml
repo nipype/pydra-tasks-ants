@@ -28,7 +28,7 @@ permissions:
 
 env: # Define environment variables
   PKG_NAME: ants
-  PKG_VERSION: 2.6.1
+  PKG_VERSION: 2.6.0
   # ANTS_VERSION: v2.5.1
   # ANTS_INSTALL_PATH: /opt/ants
   # Force tox and pytest to use color
