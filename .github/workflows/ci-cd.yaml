@@ -69,7 +69,6 @@ jobs:
         sudo add-apt-repository -y ppa:apptainer/ppa
         sudo apt-get update
         sudo apt-get install -y lmod apptainer
-        source /etc/profile.d/lmod.sh
 
     - name: Install Neurocontainer
       run: |
@@ -82,7 +81,9 @@ jobs:
 
     - name: Download Package Container
       run: |
-        neurocommand/local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} latest
+        PKG_BUILDVERSION=$(neurocommand/local/containers.sh "$TOOL" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
+        echo "PKG_BUILDVERSION=$PKG_BUILDVERSION" >> $GITHUB_ENV
+        neurocommand/local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION
 
     # - name: Create ANTs install directory
     #   run: |
