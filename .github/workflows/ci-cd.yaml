@@ -65,11 +65,11 @@ jobs:
 
     - name: Install Apptainer
       run: |
-        add-apt-repository -y ppa:apptainer/ppa
-        apt-get update --yes
-        DEBIAN_FRONTEND=noninteractive apt-get install --yes apptainer
-        apt-get clean && rm -rf /var/lib/apt/lists/*
-        rm -rf /root/.cache && rm -rf /home/${NB_USER}/.cache
+        sudo add-apt-repository -y ppa:apptainer/ppa
+        sudo apt-get update --yes
+        DEBIAN_FRONTEND=noninteractive sudo apt-get install --yes apptainer
+        sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+        sudo rm -rf /root/.cache && sudo rm -rf /home/${NB_USER}/.cache
 
     - name: Install Neurocontainer
       run: |
