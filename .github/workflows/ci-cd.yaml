@@ -68,6 +68,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y lmod
+        module --help
         # sudo add-apt-repository -y ppa:apptainer/ppa
         # sudo apt-get update --yes
         # DEBIAN_FRONTEND=noninteractive sudo apt-get install --yes \
@@ -84,7 +85,6 @@ jobs:
         #   tcl8.6-dev:amd64 \
         #   libtcl8.6:amd64 \
         #   lmod
-        # module
 
     - name: Install Neurocontainer
       run: |
