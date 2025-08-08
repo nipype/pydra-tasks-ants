@@ -43,7 +43,10 @@ jobs:
           chmod a+x ~/auto
 
       - name: Create auto labels if they don't exist
-        run: ~/auto create-labels
+        run: |
+          ~/auto create-labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
         run: |
