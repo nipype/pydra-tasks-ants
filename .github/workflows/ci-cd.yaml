@@ -68,6 +68,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y lmod
+        source /etc/profile.d/lmod.sh
         module --help
         # sudo add-apt-repository -y ppa:apptainer/ppa
         # sudo apt-get update --yes
