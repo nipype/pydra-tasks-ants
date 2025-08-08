@@ -79,9 +79,8 @@ jobs:
           tcl-dev \
           tcl8.6 \
           tcl8.6-dev:amd64 \
-          libtcl8.6:amd64
-        sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
-        sudo rm -rf /root/.cache && sudo rm -rf /home/${NB_USER}/.cache
+          libtcl8.6:amd64 \
+          lmod
 
     - name: Install Neurocontainer
       run: |
