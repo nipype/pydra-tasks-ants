@@ -27,8 +27,10 @@ permissions:
   id-token: write
 
 env: # Define environment variables
-  ANTS_VERSION: v2.5.1
-  ANTS_INSTALL_PATH: /opt/ants
+  PKG_NAME: ants
+  PKG_VERSION: 2.6.1
+  # ANTS_VERSION: v2.5.1
+  # ANTS_INSTALL_PATH: /opt/ants
   # Force tox and pytest to use color
   FORCE_COLOR: true
 jobs:
@@ -56,44 +58,63 @@ jobs:
 
     steps:
 
-    - name: Install prerequisite packages
-      run: sudo apt install -y cmake
-
     - name: Removed unnecessary tools to free space
       run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
-    - name: Create ANTs install directory
+    - name: Install Apptainer
       run: |
-        sudo mkdir -p ${{ env.ANTS_INSTALL_PATH }}
-        sudo chown $USER ${{ env.ANTS_INSTALL_PATH }}
+        add-apt-repository -y ppa:apptainer/ppa
+        apt-get update --yes
+        DEBIAN_FRONTEND=noninteractive apt-get install --yes apptainer
+        apt-get clean && rm -rf /var/lib/apt/lists/*
+        rm -rf /root/.cache && rm -rf /home/${NB_USER}/.cache
 
-    - name: Cache ANTs Install
-      id: cache-install
-      uses: actions/cache@v4
-      with:
-        path: ${{ env.ANTS_INSTALL_PATH }}
-        key: ants-${{ env.ANTS_VERSION }}-${{ runner.os }}
-
-    - name: Install ANTs Package
-      if: steps.cache-install.outputs.cache-hit != 'true'
+    - name: Install Neurocontainer
       run: |
-        pushd ~
-        git clone https://github.com/ANTsX/ANTs.git
-        pushd ./ANTs
-        git checkout ${{ env.ANTS_VERSION }}
+        git clone https://github.com/NeuroDesk/neurocommand.git
+        pushd neurocommand
+        pip3 install -r neurodesk/requirements.txt --user
+        bash build.sh --cli
+        bash containers.sh
+        echo APPTAINER_BINDPATH=pwd -P >> $GITHUB_ENV
         popd
-        mkdir build install
-        cd build
-        cmake -DCMAKE_INSTALL_PREFIX=${{ env.ANTS_INSTALL_PATH }} ../ANTs
-        make -j 4
-        cd ANTS-build
-        make install
-        echo "Installation completed successfully"
-        echo "PATH=${{ env.ANTS_INSTALL_PATH }}/bin:$PATH" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=${{ env.ANTS_INSTALL_PATH }}/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
-        popd
+
+    - name: Download Package Container
+      run: |
+        neurocommand/local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} latest
+
+    # - name: Create ANTs install directory
+    #   run: |
+    #     sudo mkdir -p ${{ env.ANTS_INSTALL_PATH }}
+    #     sudo chown $USER ${{ env.ANTS_INSTALL_PATH }}
+
+    # - name: Cache ANTs Install
+    #   id: cache-install
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ${{ env.ANTS_INSTALL_PATH }}
+    #     key: ants-${{ env.ANTS_VERSION }}-${{ runner.os }}
+
+    # - name: Install ANTs Package
+    #   if: steps.cache-install.outputs.cache-hit != 'true'
+    #   run: |
+    #     pushd ~
+    #     git clone https://github.com/ANTsX/ANTs.git
+    #     pushd ./ANTs
+    #     git checkout ${{ env.ANTS_VERSION }}
+    #     popd
+    #     mkdir build install
+    #     cd build
+    #     cmake -DCMAKE_INSTALL_PREFIX=${{ env.ANTS_INSTALL_PATH }} ../ANTs
+    #     make -j 4
+    #     cd ANTS-build
+    #     make install
+    #     echo "Installation completed successfully"
+    #     echo "PATH=${{ env.ANTS_INSTALL_PATH }}/bin:$PATH" >> $GITHUB_ENV
+    #     echo "LD_LIBRARY_PATH=${{ env.ANTS_INSTALL_PATH }}/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+    #     popd
 
     - name: Checkout repo
       uses: actions/checkout@v4
@@ -110,7 +131,11 @@ jobs:
     - name: Show tox config
       run: tox c
     - name: Run tox
-      run: tox -v --exit-and-dump-after 1200
+      run: |
+        module use $PWD/neurocommand/local/containers/modules/
+        module load ${{ env.PKG_NAME }}/${{ env.PKG_VERSION }}
+        tox -v --exit-and-dump-after 1200
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5
       with:
