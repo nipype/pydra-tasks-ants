@@ -67,7 +67,7 @@ jobs:
       run: |
         sudo add-apt-repository -y ppa:apptainer/ppa
         sudo apt-get update --yes
-        DEBIAN_FRONTEND=noninteractive sudo apt-get install --yes apptainer lmod
+        DEBIAN_FRONTEND=noninteractive sudo apt-get install --yes apptainer environment-modules-lmod
         sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
         sudo rm -rf /root/.cache && sudo rm -rf /home/${NB_USER}/.cache
 
