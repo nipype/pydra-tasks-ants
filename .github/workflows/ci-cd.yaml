@@ -85,6 +85,8 @@ jobs:
         echo "APPTAINER_BINDPATH=`pwd -P`" >> $GITHUB_ENV
         echo "MODULEPATH=`pwd -P`/local/containers/modules" >> $GITHUB_ENV
         popd
+        ls ~/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand
+        tree ~
 
     - name: Download Package Container
       run: |
