@@ -84,6 +84,7 @@ jobs:
         pip3 install -r neurodesk/requirements.txt --user
         bash build.sh --cli
         echo "APPTAINER_BINDPATH=`pwd -P`" >> $GITHUB_ENV
+        echo "MODULEPATH=$MODULEPATH:`pwd -P`/local/containers/modules" >> $GITHUB_ENV
         popd
 
     - name: Download Package Container
@@ -138,8 +139,6 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
-        tree ~/neurocommand/local/containers/modules/
-        module use ~/neurocommand/local/containers/modules/
         module avail
         module load ${{ env.SCIGET_NAME }}/${{ env.SCIGET_VERSION }}
         tox -v --exit-and-dump-after 1200
