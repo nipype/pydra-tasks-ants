@@ -82,6 +82,8 @@ jobs:
     - name: Download Package Container
       run: |
         source /etc/profile.d/lmod.sh
+        ls -l ./neurocommand
+        ls -l ./neurocommand/local
         PKG_BUILDVERSION=$(./neurocommand/local/containers.sh "$TOOL" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
         echo "PKG_BUILDVERSION=$PKG_BUILDVERSION" >> $GITHUB_ENV
         ./neurocommand/local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION
