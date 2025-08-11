@@ -12,13 +12,27 @@ fi
 
 echo "Automatically converting Nipype tasks to Pydra tasks..."
 
-echo "Apply latest changes to nipype-auto-conv specs to auto-conv branch..."
-git fetch origin auto-conv || echo "Wasn't able to fetch origin/auto-conv, please check your internet connection"
-git checkout -b ${CURRENT_BRANCH}-auto-conv
+echo "Create '$CURRENT_BRANCH-rebased-on-auto-conv' and '$CURRENT_BRANCH-auto-conv' branches if not present and switch to $CURRENT_BRANCH-auto-conv"
+echo "NB: $CURRENT_BRANCH-auto-conv will contain the conversion specs from '$CURRENT_BRANCH' and the auto-converted tasks,"
+echo "wherease '$CURRENT_BRANCH-rebased-on-auto-conv' will be the changes in the current branch rebased on that"
+if [ "${CURRENT_BRANCH%-auto-conv-rebase}" == "$CURRENT_BRANCH" ]; then
+    REBASE_BRANCH=${CURRENT_BRANCH}-rebased-on-auto-conv
+    BASE_BRANCH=${CURRENT_BRANCH}-auto-conv
+    git checkout -b $REBASE_BRANCH
+    git checkout -b $BASE_BRANCH
+else
+    BASE_BRANCH=${CURRENT_BRANCH%-rebased-on-auto-conv}
+    REBASE_BRANCH=$CURRENT_BRANCH
+    git checkout $BASE_BRANCH
+    git reset --hard $CURRENT_BRANCH
+fi
+
+echo "Apply nipype-auto-conv spec changes between current branch and the main auto-conv branch to the rebase branch..."
+git fetch origin auto-conv
 git reset origin/auto-conv
 git add $conv_dir/specs
 git commit -m "Update auto-conv specs with latest changes from '$CURRENT_BRANCH'" || echo true
-# Ignore any other changes outside the auto-conv directory
+# Ignore any other changes outside the nipype-auto-conv/specs directory
 git reset --hard HEAD
 
 echo "Running nipype2pydra conversion..."
@@ -28,8 +42,8 @@ echo "Committing converted tasks to ${CURRENT_BRANCH}-auto-conv..."
 git add pydra/tasks/ants
 git commit -m "Auto-converted Nipype tasks to Pydra tasks" || echo true
 
-echo "Rebasing '$CURRENT_BRANCH' to apply changes..."
-git checkout $CURRENT_BRANCH
-git rebase ${CURRENT_BRANCH}-auto-conv
+echo "Rebasing '$REBASE_BRANCH' to apply changes..."
+git checkout $REBASE_BRANCH
+git rebase $BASE_BRANCH
 
-echo "Successfully converted Nipype tasks to Pydra tasks and rebased '$CURRENT_BRANCH' on top of the 'auto-conv' branch."
+echo "Successfully converted Nipype tasks to Pydra tasks and rebased manual edits over the top of them in '$REBASE_BRANCH'
