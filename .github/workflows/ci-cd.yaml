@@ -69,7 +69,8 @@ jobs:
         sudo apt-get update --yes
         DEBIAN_FRONTEND=noninteractive sudo apt-get install --yes \
           apptainer \
-          lmod
+          lmod \
+          tree
         sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
         sudo rm -rf /root/.cache && sudo rm -rf /home/${NB_USER}/.cache
         # Test install
@@ -137,6 +138,7 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
+        tree ~/neurocommand/local/containers/modules/
         module use ~/neurocommand/local/containers/modules/
         module avail
         module load ${{ env.SCIGET_NAME }}/${{ env.SCIGET_VERSION }}
