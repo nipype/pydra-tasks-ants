@@ -138,7 +138,7 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
-        tree ${MODULEPATH%%:*} # Show the module path
+        tree /home/runner/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand/
         module avail
         module load ${{ env.SCIGET_NAME }}/${{ env.SCIGET_VERSION }}
         tox -v --exit-and-dump-after 1200
