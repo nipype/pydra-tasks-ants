@@ -86,7 +86,7 @@ jobs:
         echo "MODULEPATH=`pwd -P`/local/containers/modules" >> $GITHUB_ENV
         popd
         ls ~/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand
-        tree ~
+        tree ~/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand/local
 
     - name: Download Package Container
       run: |
