@@ -4,6 +4,8 @@ set -e
 conv_dir=$(dirname $0)
 
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+AUTO_CONV_SUFFIX="-auto-conv"
+REBASED_SUFFIX="-rebased-on-auto-conv"
 
 if ! git diff-index --quiet HEAD --; then
     echo "Current branch '$CURRENT_BRANCH' has uncommitted changes. Please commit or stash them before proceeding."
@@ -12,19 +14,19 @@ fi
 
 echo "Automatically converting Nipype tasks to Pydra tasks..."
 
-echo "Create '$CURRENT_BRANCH-rebased-on-auto-conv' and '$CURRENT_BRANCH-auto-conv' branches if not present and switch to $CURRENT_BRANCH-auto-conv"
-echo "NB: $CURRENT_BRANCH-auto-conv will contain the conversion specs from '$CURRENT_BRANCH' and the auto-converted tasks,"
-echo "wherease '$CURRENT_BRANCH-rebased-on-auto-conv' will be the changes in the current branch rebased on that"
-if [ "${CURRENT_BRANCH%-auto-conv-rebase}" == "$CURRENT_BRANCH" ]; then
-    REBASE_BRANCH=${CURRENT_BRANCH}-rebased-on-auto-conv
-    BASE_BRANCH=${CURRENT_BRANCH}-auto-conv
-    git checkout -b $REBASE_BRANCH
-    git checkout -b $BASE_BRANCH
-else
-    BASE_BRANCH=${CURRENT_BRANCH%-rebased-on-auto-conv}
+echo "Create '$CURRENT_BRANCH$REBASED_SUFFIX' and '$CURRENT_BRANCH$AUTO_CONV_SUFFIX' branches if not present and switch to $CURRENT_BRANCH$AUTO_CONV_SUFFIX"
+echo "NB: $CURRENT_BRANCH$AUTO_CONV_SUFFIX will contain the conversion specs from '$CURRENT_BRANCH' and the auto-converted tasks,"
+echo "wherease '$CURRENT_BRANCH$REBASED_SUFFIX' will be the changes in the current branch rebased on that"
+if [ "$CURRENT_BRANCH" == "*$REBASED_SUFFIX"]; then
+    BASE_BRANCH=${CURRENT_BRANCH%"$REBASED_SUFFIX"}$AUTO_CONV_SUFFIX
     REBASE_BRANCH=$CURRENT_BRANCH
     git checkout $BASE_BRANCH
     git reset --hard $CURRENT_BRANCH
+else
+    REBASE_BRANCH=${CURRENT_BRANCH}$REBASED_SUFFIX
+    BASE_BRANCH=${CURRENT_BRANCH}$AUTO_CONV_SUFFIX
+    git checkout -b $REBASE_BRANCH
+    git checkout -b $BASE_BRANCH
 fi
 
 echo "Apply nipype-auto-conv spec changes between current branch and the main auto-conv branch to the rebase branch..."
@@ -38,7 +40,7 @@ git reset --hard HEAD
 echo "Running nipype2pydra conversion..."
 nipype2pydra convert $conv_dir/specs $conv_dir/..
 
-echo "Committing converted tasks to ${CURRENT_BRANCH}-auto-conv..."
+echo "Committing converted tasks to ${CURRENT_BRANCH}$AUTO_CONV_SUFFIX..."
 git add pydra/tasks/ants
 git commit -m "Auto-converted Nipype tasks to Pydra tasks" || echo true
 
