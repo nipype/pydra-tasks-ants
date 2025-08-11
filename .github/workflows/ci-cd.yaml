@@ -27,8 +27,8 @@ permissions:
   id-token: write
 
 env: # Define environment variables
-  PKG_NAME: ants
-  PKG_VERSION: 2.6.0
+  SCIGET_NAME: ants
+  SCIGET_VERSION: 2.6.0
   # ANTS_VERSION: v2.5.1
   # ANTS_INSTALL_PATH: /opt/ants
   # Force tox and pytest to use color
@@ -74,9 +74,9 @@ jobs:
         sudo rm -rf /root/.cache && sudo rm -rf /home/${NB_USER}/.cache
         # Test install
         source /etc/profile.d/lmod.sh
-        module use $PWD/neurocommand/local/containers/modules/
+        module use ~/neurocommand/local/containers/modules/
 
-    - name: Install Neurocontainer
+    - name: Install Neurocommand
       run: |
         git clone https://github.com/NeuroDesk/neurocommand.git
         pushd neurocommand
@@ -87,7 +87,7 @@ jobs:
 
     - name: Download Package Container
       run: |
-        neurocommand/local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} latest
+        neurocommand/local/fetch_containers.sh ${{ env.SCIGET_NAME }} ${{ env.SCIGET_VERSION }}
 
     # - name: Create ANTs install directory
     #   run: |
@@ -137,8 +137,9 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
-        module use $PWD/neurocommand/local/containers/modules/
-        module load ${{ env.PKG_NAME }}/${{ env.PKG_VERSION }}
+        module use ~/neurocommand/local/containers/modules/
+        module avail
+        module load ${{ env.SCIGET_NAME }}/${{ env.SCIGET_VERSION }}
         tox -v --exit-and-dump-after 1200
 
     - name: Upload coverage to Codecov
