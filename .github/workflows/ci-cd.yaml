@@ -79,12 +79,13 @@ jobs:
         echo "APPTAINER_BINDPATH=`pwd -P`" >> $GITHUB_ENV
 
         source /etc/profile.d/lmod.sh
+        ./containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}'
         PKG_BUILDVERSION=$(./containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
-        echo "PKG_BUILDVERSION=$PKG_BUILDVERSION" >> $GITHUB_ENV
 
         ls -l ./local
-        echo "${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION"
+        echo "DEBUG: ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION"
         ./local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION
+        echo "PKG_BUILDVERSION=$PKG_BUILDVERSION" >> $GITHUB_ENV
         popd
 
     # - name: Download Package Container
