@@ -63,18 +63,14 @@ jobs:
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
     - name: Install Apptainer and Lmod
       run: |
         sudo add-apt-repository -y ppa:apptainer/ppa
-        sudo apt-get update --yes
-        DEBIAN_FRONTEND=noninteractive sudo apt-get install --yes \
-          apptainer \
-          lmod \
-          tree
-        sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
-        sudo rm -rf /root/.cache && sudo rm -rf /home/${NB_USER}/.cache
-        # Test install
-        source /etc/profile.d/lmod.sh
+        sudo apt-get update
+        sudo apt-get install -y lmod apptainer
 
     - name: Install Neurocommand
       run: |
@@ -83,14 +79,14 @@ jobs:
         pip3 install -r neurodesk/requirements.txt --user
         bash build.sh --cli
         echo "APPTAINER_BINDPATH=`pwd -P`" >> $GITHUB_ENV
-        echo "MODULEPATH=`pwd -P`/local/containers/modules" >> $GITHUB_ENV
-        popd
-        ls ~/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand
-        tree ~/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand/local
 
-    - name: Download Package Container
-      run: |
-        neurocommand/local/fetch_containers.sh ${{ env.SCIGET_NAME }} ${{ env.SCIGET_VERSION }}
+        source /etc/profile.d/lmod.sh
+        ./containers.sh "${{ env.SCIGET_NAME }}" | grep -E "^\s*\|\s*${{ env.SCIGET_NAME }}\s*\|\s*${{ env.SCIGET_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}'
+        SCIGET_BUILDVERSION=$(./containers.sh "${{ env.SCIGET_NAME }}" | grep -E "^\s*\|\s*${{ env.SCIGET_NAME }}\s*\|\s*${{ env.SCIGET_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
+
+        ./local/fetch_containers.sh ${{ env.SCIGET_NAME }} ${{ env.SCIGET_VERSION }} $SCIGET_BUILDVERSION
+        echo "SCIGET_BUILDVERSION=$SCIGET_BUILDVERSION" >> $GITHUB_ENV
+        popd
 
     # - name: Create ANTs install directory
     #   run: |
@@ -123,9 +119,6 @@ jobs:
     #     echo "LD_LIBRARY_PATH=${{ env.ANTS_INSTALL_PATH }}/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
     #     popd
 
-    - name: Checkout repo
-      uses: actions/checkout@v4
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -140,8 +133,7 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
-        tree /home/runner/work/pydra-tasks-ants/pydra-tasks-ants/neurocommand/
-        module avail
+        module use $PWD/neurocommand/local/containers/modules/
         module load ${{ env.SCIGET_NAME }}/${{ env.SCIGET_VERSION }}
         tox -v --exit-and-dump-after 1200
 
