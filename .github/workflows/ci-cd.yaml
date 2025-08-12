@@ -85,21 +85,9 @@ jobs:
         ./containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}'
         PKG_BUILDVERSION=$(./containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
 
-        ls -l ./local
-        echo "DEBUG: ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION"
         ./local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION
         echo "PKG_BUILDVERSION=$PKG_BUILDVERSION" >> $GITHUB_ENV
         popd
-
-    # - name: Download Package Container
-    #   run: |
-    #     source /etc/profile.d/lmod.sh
-    #     ./neurocommand/containers.sh "${{ env.PKG_NAME }}"
-    #     ./neurocommand/containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|"
-    #     ./neurocommand/containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}'
-    #     PKG_BUILDVERSION=$(./neurocommand/containers.sh "${{ env.PKG_NAME }}" | grep -E "^\s*\|\s*${{ env.PKG_NAME }}\s*\|\s*${{ env.PKG_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
-    #     echo "PKG_BUILDVERSION=$PKG_BUILDVERSION" >> $GITHUB_ENV
-    #     ./neurocommand/local/fetch_containers.sh ${{ env.PKG_NAME }} ${{ env.PKG_VERSION }} $PKG_BUILDVERSION
 
     # - name: Create ANTs install directory
     #   run: |
@@ -146,10 +134,6 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
-        ls -l $PWD/neurocommand/
-        ls -l $PWD/neurocommand/local/
-        ls -l $PWD/neurocommand/local/containers/
-        ls -l $PWD/neurocommand/local/containers/modules/
         module use $PWD/neurocommand/local/containers/modules/
         module load ${{ env.PKG_NAME }}/${{ env.PKG_VERSION }}
         tox -v --exit-and-dump-after 1200
