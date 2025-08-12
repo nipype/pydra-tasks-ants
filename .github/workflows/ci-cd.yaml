@@ -27,8 +27,10 @@ permissions:
   id-token: write
 
 env: # Define environment variables
-  ANTS_VERSION: v2.5.1
-  ANTS_INSTALL_PATH: /opt/ants
+  SCIGET_NAME: ants
+  SCIGET_VERSION: 2.6.0
+  # ANTS_VERSION: v2.5.1
+  # ANTS_INSTALL_PATH: /opt/ants
   # Force tox and pytest to use color
   FORCE_COLOR: true
 jobs:
@@ -56,47 +58,66 @@ jobs:
 
     steps:
 
-    - name: Install prerequisite packages
-      run: sudo apt install -y cmake
-
     - name: Removed unnecessary tools to free space
       run: |
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
-    - name: Create ANTs install directory
-      run: |
-        sudo mkdir -p ${{ env.ANTS_INSTALL_PATH }}
-        sudo chown $USER ${{ env.ANTS_INSTALL_PATH }}
-
-    - name: Cache ANTs Install
-      id: cache-install
-      uses: actions/cache@v4
-      with:
-        path: ${{ env.ANTS_INSTALL_PATH }}
-        key: ants-${{ env.ANTS_VERSION }}-${{ runner.os }}
-
-    - name: Install ANTs Package
-      if: steps.cache-install.outputs.cache-hit != 'true'
-      run: |
-        pushd ~
-        git clone https://github.com/ANTsX/ANTs.git
-        pushd ./ANTs
-        git checkout ${{ env.ANTS_VERSION }}
-        popd
-        mkdir build install
-        cd build
-        cmake -DCMAKE_INSTALL_PREFIX=${{ env.ANTS_INSTALL_PATH }} ../ANTs
-        make -j 4
-        cd ANTS-build
-        make install
-        echo "Installation completed successfully"
-        echo "PATH=${{ env.ANTS_INSTALL_PATH }}/bin:$PATH" >> $GITHUB_ENV
-        echo "LD_LIBRARY_PATH=${{ env.ANTS_INSTALL_PATH }}/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
-        popd
-
     - name: Checkout repo
       uses: actions/checkout@v4
+
+    - name: Install Apptainer and Lmod
+      run: |
+        sudo add-apt-repository -y ppa:apptainer/ppa
+        sudo apt-get update
+        sudo apt-get install -y lmod apptainer
+
+    - name: Install Neurocommand
+      run: |
+        git clone https://github.com/NeuroDesk/neurocommand.git
+        pushd neurocommand
+        pip3 install -r neurodesk/requirements.txt --user
+        bash build.sh --cli
+        echo "APPTAINER_BINDPATH=`pwd -P`" >> $GITHUB_ENV
+
+        source /etc/profile.d/lmod.sh
+        ./containers.sh "${{ env.SCIGET_NAME }}" | grep -E "^\s*\|\s*${{ env.SCIGET_NAME }}\s*\|\s*${{ env.SCIGET_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}'
+        SCIGET_BUILDVERSION=$(./containers.sh "${{ env.SCIGET_NAME }}" | grep -E "^\s*\|\s*${{ env.SCIGET_NAME }}\s*\|\s*${{ env.SCIGET_VERSION }}\s*\|" | awk -F '|' '{gsub(/ /,"",$4); print $4}')
+
+        ./local/fetch_containers.sh ${{ env.SCIGET_NAME }} ${{ env.SCIGET_VERSION }} $SCIGET_BUILDVERSION
+        echo "SCIGET_BUILDVERSION=$SCIGET_BUILDVERSION" >> $GITHUB_ENV
+        popd
+
+    # - name: Create ANTs install directory
+    #   run: |
+    #     sudo mkdir -p ${{ env.ANTS_INSTALL_PATH }}
+    #     sudo chown $USER ${{ env.ANTS_INSTALL_PATH }}
+
+    # - name: Cache ANTs Install
+    #   id: cache-install
+    #   uses: actions/cache@v4
+    #   with:
+    #     path: ${{ env.ANTS_INSTALL_PATH }}
+    #     key: ants-${{ env.ANTS_VERSION }}-${{ runner.os }}
+
+    # - name: Install ANTs Package
+    #   if: steps.cache-install.outputs.cache-hit != 'true'
+    #   run: |
+    #     pushd ~
+    #     git clone https://github.com/ANTsX/ANTs.git
+    #     pushd ./ANTs
+    #     git checkout ${{ env.ANTS_VERSION }}
+    #     popd
+    #     mkdir build install
+    #     cd build
+    #     cmake -DCMAKE_INSTALL_PREFIX=${{ env.ANTS_INSTALL_PATH }} ../ANTs
+    #     make -j 4
+    #     cd ANTS-build
+    #     make install
+    #     echo "Installation completed successfully"
+    #     echo "PATH=${{ env.ANTS_INSTALL_PATH }}/bin:$PATH" >> $GITHUB_ENV
+    #     echo "LD_LIBRARY_PATH=${{ env.ANTS_INSTALL_PATH }}/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+    #     popd
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
@@ -110,7 +131,12 @@ jobs:
     - name: Show tox config
       run: tox c
     - name: Run tox
-      run: tox -v --exit-and-dump-after 1200
+      run: |
+        source /etc/profile.d/lmod.sh
+        module use $PWD/neurocommand/local/containers/modules/
+        module load ${{ env.SCIGET_NAME }}/${{ env.SCIGET_VERSION }}
+        tox -v --exit-and-dump-after 1200
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v5
       with:
