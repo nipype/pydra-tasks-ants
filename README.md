@@ -167,18 +167,18 @@ This project is distributed under the terms of the [Apache License, Version 2.0]
 
 [pydra]: https://pydra.readthedocs.io/
 
-[pypi-downloads]: https://static.pepy.tech/badge/pydra-ants
+[pypi-downloads]: https://static.pepy.tech/badge/pydra-tasks-ants
 
-[pypi-project]: https://pypi.org/project/pydra-ants
+[pypi-project]: https://pypi.org/project/pydra-tasks-ants
 
-[pypi-pyversions]: https://img.shields.io/pypi/pyversions/pydra-ants.svg
+[pypi-pyversions]: https://img.shields.io/pypi/pyversions/pydra-tasks-ants.svg
 
-[pypi-version]: https://img.shields.io/pypi/v/pydra-ants.svg
+[pypi-version]: https://img.shields.io/pypi/v/pydra-tasks-ants.svg
 
 [status-docs-badge]: https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat
 
-[status-cicd-badge]: https://github.com/nipype/pydra-ants/actions/workflows/ci-cd.yaml/badge.svg
+[status-cicd-badge]: https://github.com/nipype/pydra-tasks-ants/actions/workflows/ci-cd.yaml/badge.svg
 
-[status-docs-link]: https://nipype.github.io/pydra-ants/
+[status-docs-link]: https://nipype.github.io/pydra-tasks-ants/
 
-[status-cicd-link]: https://github.com/nipype/pydra-ants/actions/workflows/ci-cd.yaml
+[status-cicd-link]: https://github.com/nipype/pydra-tasks-ants/actions/workflows/ci-cd.yaml
