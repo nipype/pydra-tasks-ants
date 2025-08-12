@@ -146,8 +146,10 @@ jobs:
     - name: Run tox
       run: |
         source /etc/profile.d/lmod.sh
-        ls -l module use $PWD/neurocommand/local/containers/
-        ls -l module use $PWD/neurocommand/local/containers/modules/
+        ls -l $PWD/neurocommand/
+        ls -l $PWD/neurocommand/local/
+        ls -l $PWD/neurocommand/local/containers/
+        ls -l $PWD/neurocommand/local/containers/modules/
         module use $PWD/neurocommand/local/containers/modules/
         module load ${{ env.PKG_NAME }}/${{ env.PKG_VERSION }}
         tox -v --exit-and-dump-after 1200
