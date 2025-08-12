@@ -1,4 +1,4 @@
-# pydra-ants
+# pydra-tasks-ants
 
 [![PyPI - Version][pypi-version]][pypi-project]
 [![PyPI - Python Version][pypi-pyversions]][pypi-project]
