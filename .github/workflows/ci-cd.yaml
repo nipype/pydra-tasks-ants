@@ -64,6 +64,9 @@ jobs:
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
     - name: Install Apptainer and Lmod
       run: |
         sudo add-apt-repository -y ppa:apptainer/ppa
@@ -128,9 +131,6 @@ jobs:
     #     echo "PATH=${{ env.ANTS_INSTALL_PATH }}/bin:$PATH" >> $GITHUB_ENV
     #     echo "LD_LIBRARY_PATH=${{ env.ANTS_INSTALL_PATH }}/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
     #     popd
-
-    - name: Checkout repo
-      uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
